@@ -6,9 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.psw_isa.psw_isa_backend.dtos.LogInDTO;
-import org.psw_isa.psw_isa_backend.models.RegistrationRequest;
 import org.psw_isa.psw_isa_backend.models.User;
-import org.psw_isa.psw_isa_backend.repository.RegistrationRequestRepository;
 import org.psw_isa.psw_isa_backend.repository.UserRepository;
 import org.psw_isa.psw_isa_backend.service.CheckRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +23,6 @@ public class UserService {
 
 	@Autowired
 	UserRepository userRepository;
-	@Autowired
-	RegistrationRequestRepository registrationRequestRepository;
-
 	@Autowired
 	CheckRoleService checkRoleService;
 
