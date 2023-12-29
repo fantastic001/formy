@@ -26,9 +26,14 @@ module.exports = {
           //'sass-loader'
         ]
       }
-    ]
+    ],
   },
   plugins: [
     new VueLoaderPlugin()
-  ]
+  ],
+  resolve: {
+    alias: {
+        vue: 'vue/dist/vue.js'
+    }
+},
 };

@@ -15,7 +15,7 @@ function run_docker() {
 		--hostname backend.psw \
 		--link PSW_ISA_postgres \
 		-it --rm \
-		--name PSW_ISA_backend \
+		--name formy_backend \
 		-v "$BACKEND_DIR/pom.xml":/usr/src/mymaven/pom.xml \
 		-v "$SOURCE_DIR":/usr/src/mymaven/src/main/java \
 		-v "$TEST_DIR":/usr/src/mymaven/src/test \
