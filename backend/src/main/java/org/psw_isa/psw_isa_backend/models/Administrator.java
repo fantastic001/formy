@@ -7,9 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
-import java.time.*;
-
+import javax.persistence.OneToOne;
 
 @Entity
 public class Administrator {
@@ -19,7 +17,7 @@ public class Administrator {
     private Long id;
 
 	
-	@ManyToOne
+	@OneToOne
     @JoinColumn
 	private User user; 
 	

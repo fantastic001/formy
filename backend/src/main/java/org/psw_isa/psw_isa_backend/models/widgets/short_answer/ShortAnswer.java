@@ -1,4 +1,4 @@
-package org.psw_isa.psw_isa_backend.models.widgets;
+package org.psw_isa.psw_isa_backend.models.widgets.short_answer;
 
 import javax.persistence.Entity;
 
@@ -10,7 +10,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
+/**
+ * This is type of field representing Shortanswer.
+ */
 @Entity 
 public class ShortAnswer implements Widget {
 
@@ -20,6 +24,7 @@ public class ShortAnswer implements Widget {
     private Long id;
 	
     @ManyToOne
+    @NotNull
     private FormItem item; 
 
     private String answer; 

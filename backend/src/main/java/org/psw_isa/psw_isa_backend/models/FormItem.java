@@ -1,11 +1,22 @@
 package org.psw_isa.psw_isa_backend.models;
 
+import java.util.Collection;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 
+/**
+ * FormItem represents generic form item in database. Every form item type has its own 
+ * additional table and every entry in that table references since entity from FormItem table.
+ * 
+ * In order to get exact type, {@link WidgetDiscovery} has to be used. 
+ * 
+ */
 @Entity
 public class FormItem {
     
@@ -14,11 +25,20 @@ public class FormItem {
     private Long id;
 	
 	@ManyToOne
+    @NotNull
 	private Form form; 
 
+    @NotNull
     private String name; 
 
     private String description;
+
+    @OneToMany
+    Collection<FormItemAnswer> answers;
+
+    public Collection<FormItemAnswer> getAnswers() {
+        return answers;
+    }
 
     public FormItem() {
     }

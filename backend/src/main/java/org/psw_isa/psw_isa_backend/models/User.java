@@ -7,7 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+
+import org.psw_isa.psw_isa_backend.Logger;
 
 
 @Entity
@@ -169,4 +173,10 @@ public class User implements java.io.Serializable {
 		numberOfLogins++;
 	}
 	
+
+	@PrePersist
+	@PreUpdate
+	void hashPassword() {
+		Logger.getInstance().info("Hashing password for " + this.email);
+	}
 }
