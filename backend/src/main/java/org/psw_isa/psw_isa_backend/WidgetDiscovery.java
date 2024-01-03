@@ -4,12 +4,19 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
-
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 import org.springframework.core.type.filter.AssignableTypeFilter;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.psw_isa.psw_isa_backend.models.FormItem;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 
+@Service
 public class WidgetDiscovery {
+
+    
     public List<Widget> getWidgets() {
         ArrayList<Widget> result = new ArrayList<>();
 
@@ -49,5 +56,16 @@ public class WidgetDiscovery {
         }
         return result;
     }
+
+    public Widget findWidgetFromFormItem(FormItem item) {
+        for (Widget widget : this.getWidgets()) {
+            if (widget.populateFromFormItem(SpringConfiguration.contextProvider(), item) != null) {
+                return widget; 
+            }
+        }
+        return null; 
+    }
+
+
     
 }

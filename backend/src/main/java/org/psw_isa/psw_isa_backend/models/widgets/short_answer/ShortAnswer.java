@@ -2,6 +2,8 @@ package org.psw_isa.psw_isa_backend.models.widgets.short_answer;
 
 import javax.persistence.Entity;
 
+import org.psw_isa.psw_isa_backend.ApplicationContextProvider;
+import org.psw_isa.psw_isa_backend.SpringConfiguration;
 import org.psw_isa.psw_isa_backend.Widget;
 import org.psw_isa.psw_isa_backend.models.FormItem;
 
@@ -29,6 +31,16 @@ public class ShortAnswer implements Widget {
 
     private String answer; 
 
+    
+
+    public ShortAnswer(@NotNull FormItem item, String answer) {
+        this.item = item;
+        this.answer = answer;
+    }
+
+    public ShortAnswer() {
+    }
+
     @Override
     public void decodeAnswer(String answer) {
         this.answer = answer;
@@ -38,6 +50,35 @@ public class ShortAnswer implements Widget {
     @Override
     public String getTypeName() {
         return "short_answer";
+    }
+
+    @Override
+    public void save(ApplicationContextProvider provider) {
+        ShortAnswerRepository repo = (ShortAnswerRepository) 
+            provider
+            .getApplicationContext()
+            .getBean(ShortAnswerRepository.class);
+        
+        repo.save(this);
+        
+    }
+
+    @Override
+    public Widget populateFromFormItem(ApplicationContextProvider provider,FormItem item) {
+        ShortAnswerRepository repo = (ShortAnswerRepository) 
+            provider
+            .getApplicationContext()
+            .getBean(ShortAnswerRepository.class);
+        
+        for (ShortAnswer entity : repo.findAll()) {
+            if (entity.item.getId() == item.getId()) {
+                this.answer = entity.answer;
+                this.id = entity.id;
+                this.item = entity.item;
+                return this;
+            }
+        }
+        return null;
     }
     
 }
