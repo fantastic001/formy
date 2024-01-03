@@ -32,7 +32,6 @@ import java.io.IOException;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes=BackendApplication.class)
-@TestPropertySource("classpath:application-integrationtest.properties")
 public class UserControllerTest {
 
     public static final String URL_PREFIX = "/users/";
