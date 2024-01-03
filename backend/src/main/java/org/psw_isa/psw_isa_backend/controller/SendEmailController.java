@@ -19,12 +19,6 @@ public class SendEmailController {
 	@Autowired
 	SendEmailService sendEmailService;
 	
-	
-	
-	
-	@Autowired
-    public JavaMailSender emailSender;
-	
 	@PostMapping(consumes = "application/json")
 	public ResponseEntity<String> sendMail(@RequestBody EmailDTO emailDTO)
 	  {
