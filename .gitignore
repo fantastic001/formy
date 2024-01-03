@@ -10,3 +10,6 @@ buildNumber.properties
 
 # Avoid ignoring Maven wrapper jar file (.jar files are usually ignored)
 !/.mvn/wrapper/maven-wrapper.jar
+backend/.m2/copy_reference_file.log
+backend/.m2/settings-docker.xml
+backend/.m2/settings.xml
