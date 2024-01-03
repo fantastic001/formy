@@ -13,3 +13,5 @@ buildNumber.properties
 backend/.m2/copy_reference_file.log
 backend/.m2/settings-docker.xml
 backend/.m2/settings.xml
+backend/mvnw
+backend/mvnw.cmd
