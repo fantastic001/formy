@@ -46,7 +46,7 @@ public class CheckRoleService {
 	
 	
 	public boolean checkIfAdministrator() {
-		return checkIfLogged() && adminRepository.findAll().stream().filter(x -> x.getUser().getId() == getUser().getId()).count() > 0;
+		return checkIfLogged() && adminRepository.findByEmail(getEmail()) != null;
 	}
 	
 	
