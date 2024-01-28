@@ -1,6 +1,8 @@
 package org.psw_isa.psw_isa_backend.controller;
 
 import org.psw_isa.psw_isa_backend.FormyConfiguration;
+import org.psw_isa.psw_isa_backend.FormyProperties;
+import org.psw_isa.psw_isa_backend.service.CheckRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,8 +21,19 @@ public class ImageUploadController {
     @Autowired
     private FormyConfiguration formyConfiguration;
 
+    @Autowired
+    private FormyProperties formyProperties;
+
+    @Autowired
+    private CheckRoleService checkRoleService;
+
     @PostMapping("upload")
     public ResponseEntity<?> uploadImage(@RequestParam("image") MultipartFile file) {
+        if (formyProperties.getOnlyAuthenticatedUsersCanUploadImages()) {
+            if (!checkRoleService.checkIfLogged()) {
+                return new ResponseEntity<>("You must be logged in to upload images", HttpStatus.UNAUTHORIZED);
+            }    
+        }
         String imageDirectory = formyConfiguration.getMediaDir();
 
         if (!file.getContentType().equals("image/jpeg")) {

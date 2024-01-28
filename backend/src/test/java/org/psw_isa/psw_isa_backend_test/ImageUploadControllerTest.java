@@ -13,13 +13,18 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.psw_isa.psw_isa_backend.BackendApplication;
+import org.psw_isa.psw_isa_backend.FormyProperties;
+import org.psw_isa.psw_isa_backend.models.User;
+import org.psw_isa.psw_isa_backend.service.UserService;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.io.File;
+import java.time.LocalDate;
 
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
@@ -36,11 +41,61 @@ public class ImageUploadControllerTest {
     @Autowired
     private DataSource dataSource;
 
+    @Autowired
+    private FormyProperties formyProperties;
+
     @PostConstruct
     public void setUp() {
         this.mockMvc = MockMvcBuilders
                 .webAppContextSetup(webApplicationContext)
                 .build();
+        
+        
+
+        if (formyProperties.getOnlyAuthenticatedUsersCanUploadImages()) {
+                
+            // create user
+            User user = new User();
+            user.setFirstname("Admin");
+            user.setLastname("Admin");
+            user.setEmail("admin@example.com");
+            user.setPassword("123");
+            user.setAddress("Address 1");
+            user.setBirthday(LocalDate.of(1990, 1, 1));
+            user.setMobilePhone("123456789");
+
+            try {
+                mockMvc.perform(post("/users/")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("" +
+                                "{\n" +
+                                "    \"firstname\": \"" + user.getFirstname() + "\",\n" +
+                                "    \"lastname\": \"" + user.getLastname() + "\",\n" +
+                                "    \"email\": \"" + user.getEmail() + "\",\n" +
+                                "    \"password\": \"" + user.getPassword() + "\",\n" +
+                                "    \"address\": \"" + user.getAddress() + "\",\n" +
+                                "    \"birthday\": \"" + user.getBirthday() + "\",\n" +
+                                "    \"mobilePhone\": \"" + user.getMobilePhone() + "\"\n" +
+                                "}"
+                        ))
+                        .andExpect(status().isOk());
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
+            // login as this user using mockMvc 
+            // (this is not the best way to do it, but it works)
+            try {
+                mockMvc.perform(post("/login/")
+                        .param("email", "admin@example.com"
+                        ).param("password", "123"))
+                        .andExpect(status().isOk());
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 
