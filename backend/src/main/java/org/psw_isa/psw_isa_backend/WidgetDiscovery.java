@@ -22,7 +22,7 @@ public class WidgetDiscovery {
 
         ClassPathScanningCandidateComponentProvider scanner = new ClassPathScanningCandidateComponentProvider(false);
         scanner.addIncludeFilter(new AssignableTypeFilter(Widget.class));
-        for (BeanDefinition bd : scanner.findCandidateComponents(BackendApplication.class.getPackageName())) {
+        for (BeanDefinition bd : scanner.findCandidateComponents(BackendApplication.class.getPackage().getName())) {
             try {
                 Class<?> cl = Class.forName(bd.getBeanClassName());
                 result.add((Widget) cl.getConstructor().newInstance());
@@ -59,7 +59,7 @@ public class WidgetDiscovery {
 
     public Widget findWidgetFromFormItem(FormItem item) {
         for (Widget widget : this.getWidgets()) {
-            if (widget.populateFromFormItem(SpringConfiguration.contextProvider(), item) != null) {
+            if (widget.populateFromFormItem(FormyConfiguration.contextProvider(), item) != null) {
                 return widget; 
             }
         }
