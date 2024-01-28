@@ -3,7 +3,7 @@ package org.psw_isa.psw_isa_backend.models.widgets.short_answer;
 import javax.persistence.Entity;
 
 import org.psw_isa.psw_isa_backend.ApplicationContextProvider;
-import org.psw_isa.psw_isa_backend.SpringConfiguration;
+import org.psw_isa.psw_isa_backend.FormyConfiguration;
 import org.psw_isa.psw_isa_backend.Widget;
 import org.psw_isa.psw_isa_backend.models.FormItem;
 
