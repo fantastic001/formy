@@ -63,4 +63,14 @@ public class FormService {
 		
 	}
 
+	public String getCsv(Long id) {
+		Form myformResult = formRepository.findOneByid(id);
+		if (myformResult == null)  {
+			return null; 
+		} else {
+			Form myform = myformResult;
+			return myform.getCsv();
+		}
+	}
+
 }

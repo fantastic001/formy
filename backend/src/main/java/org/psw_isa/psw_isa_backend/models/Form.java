@@ -110,4 +110,20 @@ public class Form {
 		return submissions;
 	}
 
+
+
+    public String getCsv() {
+        String csv = "";
+		if (getSubmissions() == null) {
+			return csv;
+		}
+		if (getSubmissions().size() == 0) {
+			return csv;
+		}
+		for (FormSubmission submission : getSubmissions()) {
+			csv += submission.getCsv();
+		}
+		return csv;
+    }
+
 }

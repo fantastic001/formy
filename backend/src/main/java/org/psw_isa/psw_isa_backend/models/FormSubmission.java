@@ -29,5 +29,14 @@ public class FormSubmission {
     @OneToMany
     Collection<FormItemAnswer> answers;
 
+    public String getCsv() {
+        String csv = "";
+        for (FormItemAnswer answer : answers) {
+            csv += answer.getAnswer() + ",";
+        }
+        csv += user.getEmail() + "\n";
+        return csv;
+    }
+
 
 }
