@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class SendEmailService {
 
-	// @Autowired
-    // public JavaMailSender emailSender;
+	@Autowired
+    public JavaMailSender emailSender;
 	
 	
 	
@@ -20,11 +20,11 @@ public class SendEmailService {
 	
 	public void sendMail(EmailDTO emailDTO)
 	{
-		// SimpleMailMessage message = new SimpleMailMessage(); 
-		// message.setTo(emailDTO.getTo()); 
-		// message.setSubject(emailDTO.getSubject()); 
-		// message.setText(emailDTO.getMessage());
-		// emailSender.send(message);
+		SimpleMailMessage message = new SimpleMailMessage(); 
+		message.setTo(emailDTO.getTo()); 
+		message.setSubject(emailDTO.getSubject()); 
+		message.setText(emailDTO.getMessage());
+		emailSender.send(message);
 		       
 	}
 	
