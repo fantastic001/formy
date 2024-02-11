@@ -10,6 +10,8 @@
 	./runBackend.sh ../backend
 	./runFrontend.sh ../frontend
 
+API documentation is available at http://localhost:9000/swagger-ui.html
+
 ## Windwos
 
 
@@ -26,3 +28,17 @@ In Powershell then type:
 	./runBackend.ps1 -BackendPath ../../backend
 	./runFrontend.ps1 -FrontendPath ../../frontend
 ./runBackendTest.ps1 -BackendPath ../../backend
+
+
+# Running E2E tests 
+
+go to e2e test environment
+
+	cd e2e_tests
+	virtualenv env 
+	. env/bin/activate 
+	pip install -r requirements.txt 
+
+Run tests:
+
+	python -m e2e
