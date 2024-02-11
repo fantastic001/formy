@@ -26,6 +26,7 @@ function run_docker() {
 		-it --rm \
 		--name formy_backend \
 		-v "$BACKEND_DIR/pom.xml":/usr/src/mymaven/pom.xml \
+		-v "$BACKEND_DIR/checkstyle.xml":/usr/src/mymaven/checkstyle.xml \
 		-v "$SOURCE_DIR":/usr/src/mymaven/src/main/java \
 		-v "$TEST_DIR":/usr/src/mymaven/src/test \
 		-v "$APPLICATION_PROPERTIES":/usr/src/mymaven/src/main/resources/application.properties \
@@ -54,6 +55,8 @@ elif [ $2 = "production" ]; then
 		exit 1
 	fi
 	run_docker spring-boot:run
+elif [ $2 = checkstyle ]; then 
+	run_docker checkstyle:check
 else
 	run_docker spring-boot:run
 fi
