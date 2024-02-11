@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
  * FormItem represents generic form item in database. Every form item type has its own 
  * additional table and every entry in that table references since entity from FormItem table.
  * 
- * In order to get exact type, {@link WidgetDiscovery} has to be used. 
+ * In order to get exact type, WidgetDiscovery has to be used. 
  * 
  */
 @Entity

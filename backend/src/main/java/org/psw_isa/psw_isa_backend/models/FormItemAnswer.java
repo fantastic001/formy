@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
  * This entity represents single answer to single form item in form submitted by user. 
  * Answers are always saved as encoded String value. 
  * 
- * In order to get exact type of item, {@link WidgetDiscovery} has to be used.
+ * In order to get exact type of item, WidgetDiscovery has to be used.
  * After that, decodeAnswer(String answer) method should be used which will 
  * populate fields in particular widget. 
  * 

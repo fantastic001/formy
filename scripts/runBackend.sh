@@ -57,6 +57,8 @@ elif [ $2 = "production" ]; then
 	run_docker spring-boot:run
 elif [ $2 = checkstyle ]; then 
 	run_docker checkstyle:check
+elif [ $2 = doc ]; then
+	run_docker javadoc:javadoc
 else
 	run_docker spring-boot:run
 fi
