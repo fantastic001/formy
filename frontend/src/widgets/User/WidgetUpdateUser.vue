@@ -50,7 +50,7 @@ export default {
 		</p>
 		
 
-		<button type="button" class="btn btn-primary btn-lg btn-block" v-on:click="update">Submit</button>
+		<button type="button" class="btn btn-primary btn-lg btn-block" v-on:click.native="update">Submit</button>
 	</div>
 </div>
 

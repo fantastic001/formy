@@ -39,7 +39,7 @@ export default {
 		</p>
 		
 
-		<button v-if="this.data.password == this.retyped_password && this.data.password.length > 5" type="button" class="btn btn-primary btn-lg btn-block" v-on:click="update">Submit</button>
+		<button v-if="this.data.password == this.retyped_password && this.data.password.length > 5" type="button" class="btn btn-primary btn-lg btn-block" v-on:click.native="update">Submit</button>
 	</div>
 </div>
 

@@ -48,7 +48,7 @@ export default {
 
 <template>
     <div class="Admin-detail"> 
-        <button v-on:click="itemDelete">Delete</button>
+        <button v-on:click.native="itemDelete">Delete</button>
         <WidgetAdminSingle :admin="this.admin" />
 
         

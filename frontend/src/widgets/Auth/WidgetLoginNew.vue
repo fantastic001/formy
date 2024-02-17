@@ -69,7 +69,7 @@ export default {
 		</p>
 		
 
-		<button type="button" class="btn btn-primary btn-lg btn-block" v-on:click="submit">Submit</button>
+		<button type="button" class="btn btn-primary btn-lg btn-block" v-on:click.native="submit">Submit</button>
 		&nbsp;
 		&nbsp;
 		<a href="/frontend/#/register">If you dont have account, click here to register</a>

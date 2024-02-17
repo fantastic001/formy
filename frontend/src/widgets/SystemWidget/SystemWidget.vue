@@ -53,7 +53,7 @@ export default {
     
 
   
-          <button  v-on:click="accept"  style="background-color:blue;color:white;height:40px;width:200px">
+          <button  v-on:click.native="accept"  style="background-color:blue;color:white;height:40px;width:200px">
              POKRENI
               </button>
     

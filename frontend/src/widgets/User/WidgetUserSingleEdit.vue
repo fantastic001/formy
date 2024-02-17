@@ -39,7 +39,7 @@ export default {
 		<input type="number" class="form-control" v-bind:placeholder="user.mobile_phone" v-model="data.mobile_phone" />
 		</p>
 		
-		<button type="button" class="btn btn-primary btn-lg btn-block" v-on:click="submit">Submit</button>
+		<button type="button" class="btn btn-primary btn-lg btn-block" v-on:click.native="submit">Submit</button>
 	</div>
     </div>
 

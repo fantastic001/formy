@@ -35,7 +35,7 @@ export default {
 
 <template>
     <div class="User-detail"> 
-        <button v-on:click="itemDelete">Delete</button>
+        <button v-on:click.native="itemDelete">Delete</button>
         <WidgetUserSingle :user="this.user" />
     </div>
 

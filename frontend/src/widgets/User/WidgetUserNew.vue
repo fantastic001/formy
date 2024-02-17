@@ -56,7 +56,7 @@ export default {
 		<input type="text" v-model="data.phone" />
 		</p>
 
-		<p><button v-on:click="submit">Submit</button></p>
+		<p><button v-on:click.native="submit">Submit</button></p>
 	</div>
     </div>
 
