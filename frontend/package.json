@@ -26,9 +26,10 @@
     "vue-router": "^2.0.0",
     "vue-style-loader": "^4.1.2",
     "vue-template-compiler": "^2.6.10",
-    "vue.js": "^0.3.2",
+    "vue": "2",
     "webpack": "^4.41.5",
-    "webpack-cli": "^3.3.4"
+    "webpack-cli": "^3.3.4",
+    "vuex": "^2.2.0"
   },
   "devDependencies": {
     "sass": "^1.23.0-module.beta.1",
