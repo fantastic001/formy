@@ -20,7 +20,7 @@
     "ol": "^6.1.1",
     "popper.js": "^1.16.1",
     "postcss-loader": "^3.0.0",
-    "vue-form-generator": "^0.6.1",
+    "vue-form-generator": "^2.3.4",
     "vue-loader": "^15.7.0",
     "vue-migration-helper": "^1.1.8",
     "vue-router": "^2.0.0",
