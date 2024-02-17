@@ -26,5 +26,13 @@ public class FormyConfiguration {
           return new JavaMailSenderImpl();
     }
 
+    // plgin directory
+    @Value("${PLUGIN_DIR:/var/data/formy/plugins}")
+    private String pluginDir;
+
+    public String getPluginDir() {
+        return pluginDir;
+    }
+
 
 }

@@ -85,7 +85,13 @@
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-ui</artifactId>
-			<version>1.6.6</version> 
+			<version>1.6.6</version>
+		</dependency>
+		<!-- Apache Commons Compress dependency for working with tar.gz files -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-compress</artifactId>
+			<version>1.21</version> <!-- Use the latest version available -->
 		</dependency>
 	</dependencies>
 
@@ -100,19 +106,20 @@
 				<artifactId>maven-checkstyle-plugin</artifactId>
 				<version>3.1.2</version>
 				<executions>
-				  <execution>
-					<id>verify-style</id>
-					<phase>verify</phase>
-					<goals>
-					  <goal>check</goal>
-					</goals>
-					<configuration>
-					  <configLocation>checkstyle.xml</configLocation> <!-- Path to your Checkstyle configuration file -->
-					</configuration>
-				  </execution>
+					<execution>
+						<id>verify-style</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
+						<configuration>
+							<configLocation>checkstyle.xml</configLocation> <!-- Path to your
+							Checkstyle configuration file -->
+						</configuration>
+					</execution>
 				</executions>
-			  </plugin>
-			  <plugin>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jxr-plugin</artifactId>
 				<version>3.1.1</version> <!-- Use the latest version available -->
@@ -124,7 +131,7 @@
 					</execution>
 				</executions>
 			</plugin>
-			  <plugin>
+			<plugin>
 				<artifactId>maven-clean-plugin</artifactId>
 			</plugin>
 			<!-- see
