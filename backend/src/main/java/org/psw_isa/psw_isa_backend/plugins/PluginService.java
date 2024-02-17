@@ -20,7 +20,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
 import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
 import org.apache.commons.compress.compressors.gzip.GzipCompressorInputStream;
-import org.hibernate.mapping.Map;
 import org.psw_isa.psw_isa_backend.FormyConfiguration;
 import org.psw_isa.psw_isa_backend.Logger;
 
@@ -33,6 +32,10 @@ public class PluginService {
     private FormyConfiguration formyConfiguration;
 
     public PluginService() {
+        if (formyConfiguration == null) {
+            Logger.getInstance().error("FormyConfiguration is null");
+            return;
+        }
         try {
             this.loadedPlugins = this.loadAllPlugins();
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IOException e) {
