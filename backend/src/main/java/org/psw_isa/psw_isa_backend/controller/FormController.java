@@ -40,6 +40,9 @@ public class FormController {
 	public ResponseEntity<HashMap<String, Object>> getData(@PathVariable("id") Long id){
 		HashMap<String, Object> data = new HashMap<>();
 		data.put("test", "test");
+		HashMap<String, Object> data2 = new HashMap<>();
+		data2.put("test2", 2);
+		data.put("test2", data2);
 		return new ResponseEntity<>(data, HttpStatus.OK);
 	}
 	

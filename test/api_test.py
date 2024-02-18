@@ -14,7 +14,7 @@ class APITest(unittest.TestCase):
         # Example test for an endpoint GET '/forms/1/data'
         response = requests.get(f"{self.base_url}/forms/1/data")
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json(), {"test": "test"})
+        self.assertEqual(response.json(), {"test": "test", "test2": {"test2": 2}})
 
 # Add more test cases as needed
 
