@@ -1,4 +1,4 @@
 {
-    "api_base_url": "http://localhost/api"
+    "api_base_url": "http://localhost:9000/"
   }
   

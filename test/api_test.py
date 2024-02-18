@@ -10,11 +10,11 @@ class APITest(unittest.TestCase):
             config = json.load(config_file)
         cls.base_url = config['api_base_url']
 
-    def test_example_endpoint(self):
-        # Example test for an endpoint '/example'
-        response = requests.get(f"{self.base_url}/example")
+    def test_form_data_endpoint(self):
+        # Example test for an endpoint GET '/forms/1/data'
+        response = requests.get(f"{self.base_url}/forms/1/data")
         self.assertEqual(response.status_code, 200)
-        # Add more assertions as needed based on your endpoint requirements
+        self.assertEqual(response.json(), {"test": "test"})
 
 # Add more test cases as needed
 

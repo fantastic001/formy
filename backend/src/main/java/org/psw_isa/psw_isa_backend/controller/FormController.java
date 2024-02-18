@@ -2,7 +2,7 @@ package org.psw_isa.psw_isa_backend.controller;
 
 import org.psw_isa.psw_isa_backend.service.FormService;
 
-
+import java.util.HashMap;
 import java.util.List;
 
 import org.psw_isa.psw_isa_backend.models.Form;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
-@RequestMapping(value = "care")
+@RequestMapping(value = "forms")
 public class FormController {
 	
 	@Autowired 
@@ -34,6 +34,13 @@ public class FormController {
 	@GetMapping(value="/{id}")
 	public ResponseEntity<Form> findOneByid(@PathVariable("id") Long id){
 		return new ResponseEntity<>(formService.findOneByid(id), HttpStatus.OK);
+	}
+
+	@GetMapping(value="/{id}/data")
+	public ResponseEntity<HashMap<String, Object>> getData(@PathVariable("id") Long id){
+		HashMap<String, Object> data = new HashMap<>();
+		data.put("test", "test");
+		return new ResponseEntity<>(data, HttpStatus.OK);
 	}
 	
 
