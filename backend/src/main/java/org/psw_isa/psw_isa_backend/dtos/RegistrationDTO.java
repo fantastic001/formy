@@ -11,11 +11,10 @@ public class RegistrationDTO {
 	private String password;
 	private String password2;
 	private String address;
-	private String insuranceid;
 	private LocalDate birthday;
 	
 	public RegistrationDTO(String firstname, String lastname, String email, String password, String password2, String address,
-			String insuranceid, String mobile_phone, LocalDate birthday) {
+			String mobile_phone, LocalDate birthday) {
 		super();
 		this.firstname = firstname;
 		this.lastname = lastname;
@@ -24,23 +23,22 @@ public class RegistrationDTO {
 		this.password = password;
 		this.password2 = password2;
 		this.address = address;
-		this.insuranceid = insuranceid;
 		this.birthday = birthday;
 	}
 
-	public String getFirstname() {
+	public String getFirstName() {
 		return firstname;
 	}
 
-	public void setFirstname(String name) {
+	public void setFirstName(String name) {
 		this.firstname = name;
 	}
 
-	public String getLastname() {
+	public String getLastName() {
 		return lastname;
 	}
 
-	public void setLastname(String lastname) {
+	public void setLastName(String lastname) {
 		this.lastname = lastname;
 	}
 
@@ -76,14 +74,6 @@ public class RegistrationDTO {
 		this.address = address;
 	}
 
-	public String getInsuranceid() {
-		return insuranceid;
-	}
-
-	public void setInsuranceid(String insuranceid) {
-		this.insuranceid = insuranceid;
-	}
-
 	public LocalDate getBirthday() {
 		return birthday;
 	}
@@ -91,11 +81,11 @@ public class RegistrationDTO {
 	public void setBirthday(LocalDate birthday) {
 		this.birthday = birthday;
 	} 
-	public String getMobile_phone() {
+	public String getMobilePhone() {
 		return mobile_phone;
 	}
 
-	public void setMobile_phone(String mobile_phone) {
+	public void setMobilePhone(String mobile_phone) {
 		this.mobile_phone = mobile_phone;
 	}
 

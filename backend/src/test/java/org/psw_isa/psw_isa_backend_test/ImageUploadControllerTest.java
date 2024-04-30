@@ -56,8 +56,8 @@ public class ImageUploadControllerTest {
                 
             // create user
             User user = new User();
-            user.setFirstname("Admin");
-            user.setLastname("Admin");
+            user.setFirstName("Admin");
+            user.setLastName("Admin");
             user.setEmail("admin@example.com");
             user.setPassword("123");
             user.setAddress("Address 1");
@@ -69,8 +69,8 @@ public class ImageUploadControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("" +
                                 "{\n" +
-                                "    \"firstname\": \"" + user.getFirstname() + "\",\n" +
-                                "    \"lastname\": \"" + user.getLastname() + "\",\n" +
+                                "    \"firstname\": \"" + user.getFirstName() + "\",\n" +
+                                "    \"lastname\": \"" + user.getLastName() + "\",\n" +
                                 "    \"email\": \"" + user.getEmail() + "\",\n" +
                                 "    \"password\": \"" + user.getPassword() + "\",\n" +
                                 "    \"address\": \"" + user.getAddress() + "\",\n" +

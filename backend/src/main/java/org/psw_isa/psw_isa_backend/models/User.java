@@ -86,19 +86,24 @@ public class User implements java.io.Serializable {
 	}
 	
 	 
-	public String getFirstname() 
+	public String getFirstName() 
 	{
 		return this.firstname;
 	}
 
-	public void setFirstname(String newValue) 
+	public void setFirstName(String newValue) 
 	{
 		this.firstname = newValue;
 	}
-	 
-	public String getLastname() 
+
+	public String getLastName() 
 	{
 		return this.lastname;
+	}
+
+	public void setLastName(String newValue) 
+	{
+		this.lastname = newValue;
 	}
 
 	public Long getId() {
@@ -113,10 +118,8 @@ public class User implements java.io.Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public void setLastname(String newValue) 
-	{
-		this.lastname = newValue;
-	}
+
+	
 	 
 	public String getMobilePhone() 
 	{
