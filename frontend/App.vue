@@ -45,42 +45,16 @@ export default {
 
         <router-link v-if='data.role == "NOT_LOGGED" || data.role == null ' to='/login'>Login</router-link>
         <router-link v-if='data.role == "NOT_LOGGED" || data.role == null ' to='/register'>Registration</router-link>
-        <router-link v-if='data.role == "DOCTOR" || data.role == "NURSE"' to='/patients'>Patients</router-link>
-        <router-link v-if='data.role == "DOCTOR" || data.role == "NURSE" || data.role == "CLINIC_ADMINISTRATOR"' to='/CareList'>Cares</router-link>
 
-
-        <router-link v-if='data.role == "ADMINISTRATOR" || data.role == "CLINIC_ADMINISTRATOR"' to='/regreq'>Registration Requests</router-link>
-        <router-link v-if='data.role == "ADMINISTRATOR" || data.role == "CLINIC_ADMINISTRATOR"' to='/careTypes'>Care Types</router-link>
-        <router-link v-if='data.role == "ADMINISTRATOR" || data.role == "CLINIC_ADMINISTRATOR" ||  data.role == "DOCTOR"|| data.role == "NURSE"' to='/profile'>My Profile</router-link>
-        <router-link v-if='data.role == "ADMINISTRATOR" || data.role == "CLINIC_ADMINISTRATOR" ||  data.role == "DOCTOR"|| data.role == "NURSE"|| data.role == "PATIENT"' to='/updateUser'>Update profile</router-link>
-		<router-link v-if="data.role == 'PATIENT'" to='/patientMedicalRecord'>Medical record</router-link>
-		<router-link v-if="data.role == 'PATIENT'" to='/patientCareHistory'>Care history</router-link>
-		<router-link v-if="data.role == 'PATIENT'" to='/patientOperationHistory'>Operation history</router-link>
-        <router-link v-if="data.role == 'ADMINISTRATOR'" to='/clinic-new'>Create Clinic</router-link>
-       <!--<router-link v-if="data.role == 'DOCTOR'" to='/doctor/myPatients'>My Patients</router-link>-->
-        <router-link v-if='data.role == "DOCTOR" || data.role == "CLINIC_ADMINISTRATOR"' to='/schedule/operation'>Schedule Operation</router-link>
-
-		<router-link v-if="data.role == 'ADMINISTRATOR' " to='/addAdminClinic'>Add Admin</router-link>
-
-        <router-link v-if='data.role == "ADMINISTRATOR" || data.role == "CLINIC_ADMINISTRATOR" ||  data.role == "DOCTOR"|| data.role == "NURSE"|| data.role == "PATIENT"' to='/clinics'>Show all clinics</router-link>
-		<router-link v-if='data.role == "ADMINISTRATOR" || data.role == "CLINIC_ADMINISTRATOR"' to='/addMedicine'>Add Medicine</router-link>
-		<router-link v-if='data.role == "ADMINISTRATOR" || data.role == "CLINIC_ADMINISTRATOR"' to='/addDiagnosis'>Add Diagnosis</router-link>
-		<router-link v-if='data.role == "ADMINISTRATOR" || data.role == "CLINIC_ADMINISTRATOR" || data.role =="DOCTOR" || data.role =="NURSE"' to='/calendar'>Calendar</router-link>
-		
-		<router-link v-if='data.role == "DOCTOR"' to='/changeoldReview'>Change old review</router-link>
-        <router-link v-if="data.role == 'CLINIC_ADMINISTRATOR'" to='/createCare'>Add new care time</router-link>
-	<router-link v-if="data.role == 'DOCTOR' || data.role == 'CLINIC_ADMINISTRATOR' || data.role == 'NURSE'" to="/vrm">Vacation Requests</router-link>
-		<router-link v-if="data.role =='NURSE'" to='prescription'>Authenticate Prescriptions</router-link>
-
-        <router-link v-if='data.role == "ADMINISTRATOR" || data.role == "CLINIC_ADMINISTRATOR"' to='/reports'>My Clinic Reports</router-link>
-        <router-link v-if='data.role == "ADMINISTRATOR" || data.role == "CLINIC_ADMINISTRATOR" ||  data.role == "DOCTOR"|| data.role == "NURSE"|| data.role == "PATIENT"' to='/logout'>Log out</router-link>
+        
+        <router-link v-if='data.role != "NOT_LOGGED" && data.role != null' to='/logout'>Log out</router-link>
 
 
 
 
 	</div>
 	
-	<p class="my-2 my-lg-0" v-if='data.role == "ADMINISTRATOR" || data.role == "CLINIC_ADMINISTRATOR" ||  data.role == "DOCTOR"|| data.role == "NURSE"|| data.role == "PATIENT"'>Logged as: {{ data.user }}</p>
+	<p class="my-2 my-lg-0" v-if='data.role != "NOT_LOGGED" && data.role != null'>Logged as: {{ data.user }}</p>
 
 
     </nav>
