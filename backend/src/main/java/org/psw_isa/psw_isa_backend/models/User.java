@@ -173,6 +173,9 @@ public class User implements java.io.Serializable {
 
 	public void increaseNumberOfLogins() 
 	{
+		if (numberOfLogins == null) {
+			numberOfLogins = 0;
+		}
 		numberOfLogins++;
 	}
 	

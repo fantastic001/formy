@@ -78,6 +78,10 @@ public class UserService {
 		if (user != null) {
 			Long id = user.getId();
 
+			// show passwords 
+			Logger.getInstance().debug("Password: " + mypass);
+			Logger.getInstance().debug("Password from db: " + user.getPassword());
+
 			if (mypass.equals(user.getPassword())) {
 				ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder
 				.currentRequestAttributes();
