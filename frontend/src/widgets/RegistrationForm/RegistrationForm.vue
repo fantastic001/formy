@@ -14,13 +14,10 @@ export default {
     	submit: function() 
 	{
 		if(this.data.password === this.data.password2){
-			if(this.data.insuranceid.length === 13){
-				RegistrationFormService.submit(this.data).then(response => {
-					if (response.status < 300) window.location.href = "/frontend/";
-				});
-			} else {
-				alert('Insurance ID must contain 13 characters.');
-			}
+			RegistrationFormService.submit(this.data).then(response => {
+				if (response.status < 300) window.location.href = "/frontend/";
+			});
+			
 		}else{
 			alert("Passwords don't match");
 		}
@@ -35,9 +32,6 @@ export default {
 		
 		<h2>Registration</h2>
 		
-		<p>
-		<input type="text" class="form-control" placeholder="Insurance ID" v-model="data.insuranceid" />
-		</p>
 		
 		<p>
 		<input type="text" class="form-control" placeholder="Firstname" v-model="data.firstname" />
@@ -72,7 +66,9 @@ export default {
 		</p>
 		
 
-		<button type="button" class="btn btn-primary btn-lg btn-block" v-on:click.native="submit">Submit</button>
+		<!-- submit button  -->
+		<button class="btn btn-primary" @click="submit">Submit</button>
+
 		&nbsp;
 		&nbsp;
 		<a href="/frontend/#/login">If you already have account, click here to login</a>
