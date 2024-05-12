@@ -1,12 +1,16 @@
 package org.psw_isa.psw_isa_backend.controller;
 
+import org.psw_isa.psw_isa_backend.service.CheckRoleService;
 import org.psw_isa.psw_isa_backend.service.FormService;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.psw_isa.psw_isa_backend.models.Form;
+import org.psw_isa.psw_isa_backend.Logger;
 import org.psw_isa.psw_isa_backend.dtos.FormDTO;
+import org.psw_isa.psw_isa_backend.models.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,15 +28,35 @@ public class FormController {
 	
 	@Autowired 
 	FormService formService;
+
+	@Autowired
+	CheckRoleService checkRoleService;
 	
 	
 	@GetMapping()
 	public ResponseEntity<List<Form>> findAll(){
-		return new ResponseEntity<>(formService.findAll(), HttpStatus.OK);
+		// get currently logged in user 
+		User currentLoggedInUser = checkRoleService.getUser();
+		if (currentLoggedInUser == null) {
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		}
+
+		List<Form> forms = formService.findAll();
+		// filter out forms by this user 
+		forms = forms.stream().filter(form -> form.getAuthor().getId() == currentLoggedInUser.getId()).collect(Collectors.toList());
+		return new ResponseEntity<>(forms, HttpStatus.OK);
 	}
 	
 	@GetMapping(value="/{id}")
 	public ResponseEntity<Form> findOneByid(@PathVariable("id") Long id){
+		User currentLoggedInUser = checkRoleService.getUser();
+		if (currentLoggedInUser == null) {
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		}
+		Form form = formService.findOneByid(id);
+		if (form.getAuthor().getId() != currentLoggedInUser.getId()) {
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		}
 		return new ResponseEntity<>(formService.findOneByid(id), HttpStatus.OK);
 	}
 
@@ -49,12 +73,21 @@ public class FormController {
 
 	@PostMapping(value="/{id}")
 	public ResponseEntity<Form> update(@PathVariable("id") Long id, @RequestBody FormDTO form){
+		User currentLoggedInUser = checkRoleService.getUser();
+		if (currentLoggedInUser == null) {
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		}
+		Form formToUpdate = formService.findOneByid(id);
+		if (formToUpdate.getAuthor().getId() != currentLoggedInUser.getId()) {
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		}
 		return new ResponseEntity<>(formService.update(id, form), HttpStatus.OK);
 	}
 
 	@PostMapping(consumes = "application/json")
 	public ResponseEntity<Long> save(@RequestBody FormDTO formDTO){
 		
+		Logger.getInstance().debug("Creating form with name " + formDTO.getName());;
 		Form form = formService.save(formDTO);
 		return new ResponseEntity<>(form.getId(),HttpStatus.OK);
 	}

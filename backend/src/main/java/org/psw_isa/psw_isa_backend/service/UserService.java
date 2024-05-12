@@ -88,9 +88,6 @@ public class UserService {
 				HttpSession session = attr.getRequest().getSession(true);
 
 				session.setAttribute("user", user.getEmail());
-				user.increaseNumberOfLogins();
-				save(user);
-				Logger.getInstance().debug("Not found approved request for this user");
 				return 1;
 
 			} else {

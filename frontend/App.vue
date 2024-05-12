@@ -48,6 +48,7 @@ export default {
 
         
         <router-link v-if='data.role != "NOT_LOGGED" && data.role != null' to='/logout'>Log out</router-link>
+		<router-link v-if='data.role != "NOT_LOGGED" && data.role != null' to='/form'>Create Form</router-link>
 
 
 

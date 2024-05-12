@@ -14,6 +14,7 @@ import org.psw_isa.psw_isa_backend.repository.FormRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.psw_isa.psw_isa_backend.Logger;
 import org.psw_isa.psw_isa_backend.dtos.FormDTO;
 
 @Service
@@ -35,7 +36,9 @@ public class FormService {
 	}
 
 	public Form save(FormDTO formDTO) {
+		Logger.getInstance().debug("FormService.save");
 		User myself = meService.greeting();
+		Logger.getInstance().debug("FormService.save myself: " + myself.getEmail());
 		return formRepository.save(new Form(
 			LocalDateTime.now(), 
 			formDTO.getSubmissionExpiryTime(),
