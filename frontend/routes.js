@@ -14,7 +14,7 @@ import System from './src/views/System.vue';
 
 
 const routes = [
-    { path: '/', component: Home },
+    { path: '/', component: Home, name: 'Home'},
     { path: '/login', component: Login},
     { path: '/register', component: Registration},
     { path: '/profile', component: Profile},
