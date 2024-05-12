@@ -49,6 +49,19 @@ export default {
         });
     },
     methods: {
+      deleteForm: function (formId) {
+        // show confirmation first 
+        if (confirm("Are you sure you want to delete this form?")) {
+          
+          axios.delete(API_URL + "/forms/" + formId)
+          .then(response => {
+              this.forms = this.forms.filter(form => form.id !== formId);
+          })
+          .catch(error => {
+              console.log(error);
+          });
+        }
+      }
     },
 }
 </script>
@@ -67,15 +80,19 @@ export default {
           <th>Submission Expiry Time</th>
           <th>Author</th>
           <th>Number of Submissions</th>
+          <th>Options</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="form in forms" :key="form.id">
-          <td>{{ form.name }}</td>
+          <td><router-link :to="{ name: 'Form', params: { formId: form.id }}">{{ form.name }}</router-link></td>
           <td>{{ form.description }}</td>
           <td>{{ form.submissionExpiryTime }}</td>
           <td>{{ form.author.username }}</td>
           <td>{{ form.submissions.length }}</td>
+          <td>
+            <button @click="deleteForm(form.id)" class="btn btn-danger">Delete</button>
+          </td>
         </tr>
       </tbody>
     </table>

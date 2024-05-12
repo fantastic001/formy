@@ -15,6 +15,7 @@ import org.psw_isa.psw_isa_backend.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -90,6 +91,20 @@ public class FormController {
 		Logger.getInstance().debug("Creating form with name " + formDTO.getName());;
 		Form form = formService.save(formDTO);
 		return new ResponseEntity<>(form.getId(),HttpStatus.OK);
+	}
+
+	@DeleteMapping(value="/{id}")
+	public ResponseEntity<Long> delete(@PathVariable("id") Long id){
+		User currentLoggedInUser = checkRoleService.getUser();
+		if (currentLoggedInUser == null) {
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		}
+		Form form = formService.findOneByid(id);
+		if (form.getAuthor().getId() != currentLoggedInUser.getId()) {
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		}
+		formService.delete(id);
+		return new ResponseEntity<>(id, HttpStatus.OK);
 	}
 
 }

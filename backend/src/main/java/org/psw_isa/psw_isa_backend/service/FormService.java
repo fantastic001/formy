@@ -76,4 +76,8 @@ public class FormService {
 		}
 	}
 
+	public void delete(Long id) {
+		formRepository.deleteById(id);
+	}
+
 }
