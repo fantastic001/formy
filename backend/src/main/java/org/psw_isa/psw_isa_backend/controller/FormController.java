@@ -134,7 +134,7 @@ public class FormController {
 	}
 
 	@GetMapping(value="/{id}/formItems")
-	public ResponseEntity<List<FormItem>> getFormItems(@PathVariable("id") Long id){
+	public ResponseEntity<List<ItemDTO>> getFormItems(@PathVariable("id") Long id){
 		User currentLoggedInUser = checkRoleService.getUser();
 		if (currentLoggedInUser == null) {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);

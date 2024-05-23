@@ -18,6 +18,7 @@ import org.psw_isa.psw_isa_backend.Logger;
 import org.psw_isa.psw_isa_backend.Widget;
 import org.psw_isa.psw_isa_backend.WidgetDiscovery;
 import org.psw_isa.psw_isa_backend.dtos.FormDTO;
+import org.psw_isa.psw_isa_backend.dtos.ItemDTO;
 
 @Service
 public class FormService {
@@ -101,7 +102,7 @@ public class FormService {
 	}
 
 
-    public List<FormItem> getFormItems(Long id) {
+    public List<ItemDTO> getFormItems(Long id) {
         Form myformResult = formRepository.findOneByid(id);
 		if (myformResult == null)  {
 			return null;
@@ -113,7 +114,16 @@ public class FormService {
 					formItems.add(item);
 				}
 			}
-			return formItems;
+			List<ItemDTO> itemDTOs = new ArrayList<ItemDTO>();
+			for (FormItem item : formItems) {
+				Widget widget = widgetDiscovery.findWidgetFromFormItem(item);
+				if (widget == null) {
+					continue;
+				}
+
+				itemDTOs.add(new ItemDTO(item.getName(), item.getDescription(), widget.getTypeName(), widget.getData()));
+			}
+			return itemDTOs;
 		}
     }
 

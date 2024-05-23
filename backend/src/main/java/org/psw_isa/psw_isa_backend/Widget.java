@@ -26,4 +26,6 @@ public interface Widget {
     String getAnswer();
 
     Long getId();
+
+    HashMap<String, String> getData();
 }

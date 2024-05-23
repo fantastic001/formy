@@ -114,5 +114,11 @@ public class ShortAnswer implements Widget {
     public Long getId() {
         return id;
     }
+
+    @Override
+    public HashMap<String, String> getData() {
+        HashMap<String, String> data = new HashMap<>();
+        return data;
+    }
     
 }
