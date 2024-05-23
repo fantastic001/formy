@@ -4,7 +4,7 @@ import Registration from './src/views/Registration.vue';
 import Profile from './src/views/Profile.vue';
 import Form from './src/views/Form.vue';
 import LogOut from './src/views/Logout.vue';
-
+import EditForm from './src/views/EditForm.vue';
 
 import UpdateProfile from './src/views/UpdateProfile.vue';
 
@@ -23,6 +23,9 @@ const routes = [
    {path: '/sys', component: System},   
 //    form creation 
     { path: '/form', component: Form},
+
+    // edit form 
+    { path: '/editForm/:id', component: EditForm, name: 'editForm', props: true},
 ];
 
 export default routes;

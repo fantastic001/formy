@@ -92,6 +92,7 @@ export default {
           <td>{{ form.submissions.length }}</td>
           <td>
             <button @click="deleteForm(form.id)" class="btn btn-danger">Delete</button>
+            <router-link :to="{ name: 'editForm', params: { id: form.id }}" class="btn btn-primary">Edit</router-link>
           </td>
         </tr>
       </tbody>

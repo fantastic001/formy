@@ -1,20 +1,22 @@
 package org.psw_isa.psw_isa_backend.service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
 import org.psw_isa.psw_isa_backend.models.Form;
-
-
+import org.psw_isa.psw_isa_backend.models.FormItem;
 import org.psw_isa.psw_isa_backend.models.User;
-
-
+import org.psw_isa.psw_isa_backend.repository.FormItemRepository;
 import org.psw_isa.psw_isa_backend.repository.FormRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.psw_isa.psw_isa_backend.Logger;
+import org.psw_isa.psw_isa_backend.Widget;
+import org.psw_isa.psw_isa_backend.WidgetDiscovery;
 import org.psw_isa.psw_isa_backend.dtos.FormDTO;
 
 @Service
@@ -25,6 +27,12 @@ public class FormService {
 
 	@Autowired
 	MeService meService; 
+
+	@Autowired
+	WidgetDiscovery widgetDiscovery;
+
+	@Autowired
+	FormItemRepository formItemRepository;
 
 	public List<Form> findAll() {
 		return formRepository.findAll();
@@ -79,5 +87,34 @@ public class FormService {
 	public void delete(Long id) {
 		formRepository.deleteById(id);
 	}
+
+
+	public FormItem addFormItem(Long id, String name, String description, String type, HashMap<String, String> data) {
+		Form myformResult = formRepository.findOneByid(id);
+		if (myformResult == null)  {
+			return null;
+		} else {
+			Logger.getInstance().debug("FormService.addFormItem");
+			FormItem formItem = widgetDiscovery.createItem(myformResult, name, description, type, data);
+			return formItem;
+		}
+	}
+
+
+    public List<FormItem> getFormItems(Long id) {
+        Form myformResult = formRepository.findOneByid(id);
+		if (myformResult == null)  {
+			return null;
+		} else {
+			Logger.getInstance().debug("FormService.getFormItems");
+			ArrayList<FormItem> formItems = new ArrayList<FormItem>();
+			for (FormItem item : formItemRepository.findAll()) {
+				if (item.getForm().getId() == id) {
+					formItems.add(item);
+				}
+			}
+			return formItems;
+		}
+    }
 
 }

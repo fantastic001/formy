@@ -2,6 +2,7 @@ package org.psw_isa.psw_isa_backend;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.context.annotation.Bean;
@@ -9,7 +10,9 @@ import org.springframework.context.annotation.ClassPathScanningCandidateComponen
 import org.springframework.core.type.filter.AssignableTypeFilter;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.psw_isa.psw_isa_backend.models.Form;
 import org.psw_isa.psw_isa_backend.models.FormItem;
+import org.psw_isa.psw_isa_backend.repository.FormItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 
@@ -17,6 +20,9 @@ import org.springframework.beans.factory.config.BeanDefinition;
 public class WidgetDiscovery {
 
     
+    @Autowired
+    FormItemRepository formItemRepository;
+
     public List<Widget> getWidgets() {
         ArrayList<Widget> result = new ArrayList<>();
 
@@ -66,6 +72,28 @@ public class WidgetDiscovery {
         return null; 
     }
 
+    public FormItem createItem(Form form, String name, String description, String type, HashMap<String, String> data) {
+        Logger.getInstance().debug("WidgetDiscovery.createItem");
+        for (Widget widget : this.getWidgets()) {
+            if (widget.getTypeName().equals(type)) {
+                Logger.getInstance().debug("WidgetDiscovery.createItem widget: " + widget.getTypeName());
+                FormItem item = new FormItem(form, name, description);
+                
+                formItemRepository.save(item);
+
+                Logger.getInstance().debug("WidgetDiscovery.createItem populating data for widget: " + widget.getTypeName());
+                widget.populateFromData(FormyConfiguration.contextProvider(), data);
+                Logger.getInstance().debug("WidgetDiscovery.createItem saving widget: " + widget.getTypeName());
+
+                widget.setItem(item);
+                widget.save(FormyConfiguration.contextProvider());
+
+                Logger.getInstance().debug("WidgetDiscovery.createItem returning item");
+                return item;
+            }
+        }
+        return null; 
+    }
 
     
 }

@@ -1,9 +1,12 @@
 package org.psw_isa.psw_isa_backend.models.widgets.short_answer;
 
+import java.util.HashMap;
+
 import javax.persistence.Entity;
 
 import org.psw_isa.psw_isa_backend.ApplicationContextProvider;
 import org.psw_isa.psw_isa_backend.FormyConfiguration;
+import org.psw_isa.psw_isa_backend.Logger;
 import org.psw_isa.psw_isa_backend.Widget;
 import org.psw_isa.psw_isa_backend.models.FormItem;
 
@@ -59,6 +62,7 @@ public class ShortAnswer implements Widget {
             .getApplicationContext()
             .getBean(ShortAnswerRepository.class);
         
+        Logger.getInstance().debug("Saving short answer");
         repo.save(this);
         
     }
@@ -79,6 +83,36 @@ public class ShortAnswer implements Widget {
             }
         }
         return null;
+    }
+
+    @Override
+    public void populateFromData(ApplicationContextProvider provider, HashMap<String, String> data) {
+
+    }
+
+    @Override
+    public void setItem(FormItem item) {
+        this.item = item;
+    }
+
+    @Override
+    public FormItem getItem() {
+        return item;
+    }
+
+    @Override
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
+
+    @Override
+    public String getAnswer() {
+        return answer;
+    }
+
+    @Override
+    public Long getId() {
+        return id;
     }
     
 }
