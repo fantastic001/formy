@@ -85,7 +85,7 @@ export default {
       </thead>
       <tbody>
         <tr v-for="form in forms" :key="form.id">
-          <td><router-link :to="{ name: 'Form', params: { formId: form.id }}">{{ form.name }}</router-link></td>
+          <td><router-link :to="{ name: 'submitForm', params: { id: form.id }}">{{ form.name }}</router-link></td>
           <td>{{ form.description }}</td>
           <td>{{ form.submissionExpiryTime }}</td>
           <td>{{ form.author.username }}</td>
