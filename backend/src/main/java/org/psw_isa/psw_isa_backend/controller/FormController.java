@@ -146,4 +146,15 @@ public class FormController {
 		return new ResponseEntity<>(formService.getFormItems(id), HttpStatus.OK);
 	}
 
+	@PostMapping(value="/{id}/submit")
+	public ResponseEntity<Long> submit(@PathVariable("id") Long id, @RequestBody HashMap<Long, String> data){
+		Logger.getInstance().debug("Submitting form with id " + id);
+		// print each data entry 
+		for (Long key : data.keySet()) {
+			Logger.getInstance().debug("Data key: " + key + " value: " + data.get(key));
+		}
+		User currentLoggedInUser = checkRoleService.getUser();
+		Long result = formService.submit(id, data);
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
 }

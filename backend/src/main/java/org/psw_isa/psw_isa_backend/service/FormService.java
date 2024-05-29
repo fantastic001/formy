@@ -8,10 +8,13 @@ import java.util.Optional;
 
 import org.psw_isa.psw_isa_backend.models.Form;
 import org.psw_isa.psw_isa_backend.models.FormItem;
+import org.psw_isa.psw_isa_backend.models.FormItemAnswer;
+import org.psw_isa.psw_isa_backend.models.FormSubmission;
 import org.psw_isa.psw_isa_backend.models.User;
+import org.psw_isa.psw_isa_backend.repository.FormItemAnswerRepository;
 import org.psw_isa.psw_isa_backend.repository.FormItemRepository;
 import org.psw_isa.psw_isa_backend.repository.FormRepository;
-
+import org.psw_isa.psw_isa_backend.repository.FormSubmissionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.psw_isa.psw_isa_backend.Logger;
@@ -34,6 +37,12 @@ public class FormService {
 
 	@Autowired
 	FormItemRepository formItemRepository;
+
+	@Autowired
+	FormItemAnswerRepository formItemAnswerRepository;
+
+	@Autowired
+	FormSubmissionRepository formSubmissionRepository;
 
 	public List<Form> findAll() {
 		return formRepository.findAll();
@@ -124,6 +133,31 @@ public class FormService {
 				itemDTOs.add(new ItemDTO(item.getName(), item.getDescription(), widget.getTypeName(), widget.getData()));
 			}
 			return itemDTOs;
+		}
+    }
+
+
+    public Long submit(Long id, HashMap<Long, String> data) {
+        Form myformResult = formRepository.findOneByid(id);
+		if (myformResult == null)  {
+			return null;
+		} else {
+			Logger.getInstance().debug("FormService.submit");
+			// Create form submission 
+			FormSubmission formSubmission = new FormSubmission(myformResult, meService.greeting());
+			formSubmissionRepository.save(formSubmission);
+			for (Long key : data.keySet()) {
+				Logger.getInstance().debug("Data key: " + key + " value: " + data.get(key));
+				// find approprirate form item with given id 
+				FormItem formItem = formItemRepository.findOneById(key);
+				if (formItem == null) {
+					continue;
+				}
+				// Create form item answer 
+				FormItemAnswer formItemAnswer = new FormItemAnswer(formItem, data.get(key), formSubmission);
+				formItemAnswerRepository.save(formItemAnswer);
+			}
+			return formSubmission.getId();
 		}
     }
 
