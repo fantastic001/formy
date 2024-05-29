@@ -151,8 +151,7 @@ export default {
     <div v-if="mode == 'submit'">
         <!-- put name for label and description as tooltip  -->
         <label>{{ createType.name }}</label>
-        <input type="text" class="form-control" v-model="answer" :placeholder="createType.data.placeholder" />
-        <p>{{ createType.description }}</p> 
+        <input type="text" class="form-control" v-model="answer" :placeholder="createType.description" />
     </div>
     <div v-else>
         <p>Mode not supported</p>
