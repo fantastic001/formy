@@ -130,7 +130,7 @@ public class FormService {
 					continue;
 				}
 
-				itemDTOs.add(new ItemDTO(item.getName(), item.getDescription(), widget.getTypeName(), widget.getData()));
+				itemDTOs.add(new ItemDTO(item.getId(), item.getName(), item.getDescription(), widget.getTypeName(), widget.getData()));
 			}
 			return itemDTOs;
 		}

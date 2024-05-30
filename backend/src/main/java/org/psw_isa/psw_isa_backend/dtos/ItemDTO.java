@@ -3,6 +3,7 @@ package org.psw_isa.psw_isa_backend.dtos;
 import java.util.HashMap;
 
 public class ItemDTO {
+    private Long id; 
     private String name; 
     private String description;
     private String type;
@@ -11,7 +12,8 @@ public class ItemDTO {
     public ItemDTO() {
     }
     
-    public ItemDTO(String name, String description, String type, HashMap<String, String> data) {
+    public ItemDTO(Long id, String name, String description, String type, HashMap<String, String> data) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.type = type;
@@ -55,4 +57,13 @@ public class ItemDTO {
     public String toString() {
         return "ItemDTO [data=" + data + ", description=" + description + ", name=" + name + ", type=" + type + "]";
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
 }
