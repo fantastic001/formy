@@ -12,7 +12,8 @@ export default {
             return {
 		data: {},
         formItems: [],
-        createType: null
+        createType: null,
+        answers: {},
 	    };
 	},
     props: {
@@ -38,6 +39,9 @@ export default {
             .then(response => {
                 console.log(response.data);
                 this.formItems = response.data;
+                this.formItems.forEach(item => {
+                    this.answers[item.id] = "";
+                });
                 // notify about var change 
                 this.$forceUpdate();
             })
@@ -46,15 +50,14 @@ export default {
             });
         },
 
-        submitForm: function() {
-            // get all answers from form items 
-            var answers = {};
-            for (var i = 0; i < this.formItems.length; i++) {
-                var formItem = this.formItems[i];
-                answers[formItem.id] = formItem.answer;
-            }
+        answer: function(itemId, answer) {
+            this.answers[itemId] = answer;
+        },
 
-            axios.post(API_URL + "/forms/" + this.id + "/submit", answers)
+        submitForm: function() {
+            
+            console.log(this.answers);
+            axios.post(API_URL + "/forms/" + this.id + "/submit", this.answers)
             .then(response => {
                 this.$router.push({ name: 'Home' });
             })
@@ -78,8 +81,9 @@ export default {
                 :itemId="formItem.id" 
                 mode="submit" 
                 :formId="data.id" 
-                :answer="formItem.answer" 
+                :answer="answers[formItem.id]" 
                 :type="formItem.type"
+                @answer="answer"
             />
         </div>
 

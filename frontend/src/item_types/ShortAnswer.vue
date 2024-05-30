@@ -14,7 +14,11 @@ export default {
             createType: null
 	    };
 	},
-    props: ["itemId", "mode", "formId", "answer"],
+    props: ["itemId", "mode", "formId"],
+    model: {
+        prop: 'answer',
+        event: 'input'
+    },
     mounted: function () 
     {
         if (this.mode == "create") {
@@ -49,6 +53,9 @@ export default {
                 console.log(error);
             });
         },
+        change: function () {
+            this.$emit('input', this.answer);
+        },
         getItem: function() {
             axios.get(API_URL + "/forms/" + this.formId + "/formItems" )
                 .then(response => {
@@ -74,7 +81,7 @@ export default {
             })
             .then(response => {
                 // EMIT "CREATED" SIGNAL 
-                this.$emit('created', response.data);
+                this.$emit('created');
                 this.setup();
             })
             .catch(error => {
@@ -148,10 +155,10 @@ export default {
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div> 
-    <div v-if="mode == 'submit'">
+    <div v-else-if="mode == 'submit'">
         <!-- put name for label and description as tooltip  -->
         <label>{{ createType.name }}</label>
-        <input type="text" class="form-control" v-model="answer" :placeholder="createType.description" />
+        <input type="text" class="form-control" v-model="answer" :placeholder="createType.description" @input="change"/>
     </div>
     <div v-else>
         <p>Mode not supported</p>

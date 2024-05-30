@@ -39,6 +39,7 @@ export default {
                 console.log(response.data);
                 this.formItems = response.data;
                 // notify about var change 
+                this.createType = null;
                 this.$forceUpdate();
             })
             .catch(error => {

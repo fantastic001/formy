@@ -11,15 +11,21 @@ export default {
     name: "FormItem",
     data: function () {
         return {
+            answer: "",
 	    };
 	},
     // parameters for this component are: itemId, mode, formId, answer, type
     // mode can be edit, view, submit and create
     // itemId is the id of the item
     // formId is the id of the form
-    // answer is the answer to the item which is bound to external world 
+    // answer is the answer to the item which can be bound 
     // type is the type of the item
-    props: ["itemId", "mode", "formId", "answer", "type"],
+    props: ["itemId", "mode", "formId", "type"],
+    // answer model
+    model: {
+        prop: 'answer',
+        event: 'input'
+    },
     mounted: function () 
     {
         axios.get(API_URL + "/forms/")
@@ -46,6 +52,13 @@ export default {
                 .replace('-', '')
                 .replace('_', '')
             );
+        },
+        created: function () {
+            this.$emit("created");
+        },
+        change: function () {
+            this.$emit('input', this.answer);
+            this.$emit("answer", this.itemId, this.answer);
         }
     },
     components: {
@@ -58,7 +71,14 @@ export default {
 
 <div class="formy-component">
     <div class="formy-item">
-        <component :is="fromSnakeCasetoCamelCase(type)" :itemId="itemId" :mode="mode" :formId="formId" :answer="answer"></component>
+        <component :is="fromSnakeCasetoCamelCase(type)" 
+        :itemId="itemId" 
+        :mode="mode" 
+        :formId="formId" 
+        :answer="answer"
+        @created="created"
+        @input="change"
+    ></component>
     </div>
 </div>
 </template>
