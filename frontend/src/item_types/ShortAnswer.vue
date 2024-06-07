@@ -11,8 +11,9 @@ export default {
     data: function () {
         return {
             item: {},
-            createType: null
-	    };
+            createType: {},
+            answer: ""
+        };
 	},
     props: ["itemId", "mode", "formId"],
     model: {
@@ -53,8 +54,11 @@ export default {
                 console.log(error);
             });
         },
-        change: function () {
-            this.$emit('input', this.answer);
+        change: function (event) {
+            this.$emit('answer', {
+                itemId: this.itemId,
+                answer: this.answer
+            });
         },
         getItem: function() {
             axios.get(API_URL + "/forms/" + this.formId + "/formItems" )

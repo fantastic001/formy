@@ -50,7 +50,9 @@ export default {
             });
         },
 
-        answer: function(itemId, answer) {
+        answer: function(event) {
+            var itemId = event.itemId;
+            var answer = event.answer;
             this.answers[itemId] = answer;
         },
 

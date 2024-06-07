@@ -56,9 +56,8 @@ export default {
         created: function () {
             this.$emit("created");
         },
-        change: function () {
-            this.$emit('input', this.answer);
-            this.$emit("answer", this.itemId, this.answer);
+        change: function (event) {
+            this.$emit("answer", event);
         }
     },
     components: {
@@ -77,7 +76,7 @@ export default {
         :formId="formId" 
         :answer="answer"
         @created="created"
-        @input="change"
+        @answer="change"
     ></component>
     </div>
 </div>
