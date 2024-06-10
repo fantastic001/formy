@@ -130,7 +130,7 @@ public class FormService {
 					continue;
 				}
 
-				itemDTOs.add(new ItemDTO(item.getId(), item.getName(), item.getDescription(), widget.getTypeName(), widget.getData()));
+				itemDTOs.add(new ItemDTO(item.getId(), item.getName(), item.getDescription(), widget.getTypeName(), widget.getData(), item.getOrder()));
 			}
 			return itemDTOs;
 		}
@@ -161,4 +161,72 @@ public class FormService {
 		}
     }
 
+
+	public void exchangeFormItems(Long id1, Long id2) {
+		FormItem item1 = formItemRepository.findOneById(id1);
+		FormItem item2 = formItemRepository.findOneById(id2);
+		if (item1 == null || item2 == null) {
+			return;
+		}
+		int order = item1.getOrder();
+		item1.setOrder(item2.getOrder());
+		item2.setOrder(order);
+		formItemRepository.save(item1);
+		formItemRepository.save(item2);
+	}
+
+	public void deleteFormItem(Long id) {
+		FormItem item = formItemRepository.findOneById(id);
+		if (item == null) {
+			return;
+		}
+		formItemRepository.delete(item);
+	}
+
+	public void moveUpFormItem(Long id) {
+		FormItem item = formItemRepository.findOneById(id);
+		if (item == null) {
+			return;
+		}
+		int order = item.getOrder();
+		List<FormItem> items = formItemRepository.findAll();
+		// find item with maximal order such that it is less than order of given item 
+		FormItem item2 = null;
+		for (FormItem item1 : items) {
+			if (item1.getOrder() < order) {
+				if (item2 == null || item1.getOrder() > item2.getOrder()) {
+					item2 = item1;
+				}
+			}
+		}
+		if (item2 == null) {
+			return;
+		}
+		this.exchangeFormItems(item.getId(), item2.getId());
+	}
+
+	public void moveDownFormItem(Long id) {
+		FormItem item = formItemRepository.findOneById(id);
+		if (item == null) {
+			return;
+		}
+		int order = item.getOrder();
+		List<FormItem> items = formItemRepository.findAll();
+		// find item with minimal order such that it is greater than order of given item 
+		FormItem item2 = null;
+		for (FormItem item1 : items) {
+			if (item1.getOrder() > order) {
+				if (item2 == null || item1.getOrder() < item2.getOrder()) {
+					item2 = item1;
+				}
+			}
+		}
+		if (item2 == null) {
+			return;
+		}
+		this.exchangeFormItems(item.getId(), item2.getId());
+	}
+
+
+	
 }

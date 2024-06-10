@@ -74,10 +74,19 @@ public class WidgetDiscovery {
 
     public FormItem createItem(Form form, String name, String description, String type, HashMap<String, String> data) {
         Logger.getInstance().debug("WidgetDiscovery.createItem");
+
+        // get all formitems for this form and calculate maximal order
+        int maxOrder = 0;
+        for (FormItem item : formItemRepository.findAll()) {
+            if (item.getOrder() > maxOrder && item.getForm().getId() == form.getId()){
+                maxOrder = item.getOrder();
+            }
+        }
+
         for (Widget widget : this.getWidgets()) {
             if (widget.getTypeName().equals(type)) {
                 Logger.getInstance().debug("WidgetDiscovery.createItem widget: " + widget.getTypeName());
-                FormItem item = new FormItem(form, name, description);
+                FormItem item = new FormItem(form, name, description, maxOrder + 1);
                 
                 formItemRepository.save(item);
 

@@ -33,6 +33,8 @@ public class FormItem {
 
     private String description;
 
+    private Integer rank;
+
     @OneToMany
     Collection<FormItemAnswer> answers;
 
@@ -43,10 +45,11 @@ public class FormItem {
     public FormItem() {
     }
 
-    public FormItem(Form form, String name, String description) {
+    public FormItem(Form form, String name, String description, int order) {
         this.form = form;
         this.name = name;
         this.description = description;
+        this.rank = order;
     }
 
     public Long getId() {
@@ -81,6 +84,15 @@ public class FormItem {
         this.description = description;
     }
 
-    
+    public int getOrder() {
+        return rank;
+    }
+
+    public void setOrder(int order) {
+        this.rank = order;
+    }
+
+
+
 
 }

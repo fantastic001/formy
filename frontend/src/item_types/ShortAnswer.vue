@@ -45,15 +45,6 @@ export default {
         }
     },
     methods: {
-        deleteItem: function (itemId) {
-            axios.delete(API_URL + "/items/" + itemId + "/")
-            .then(response => {
-                this.$router.push({ name: 'Home' });
-            })
-            .catch(error => {
-                console.log(error);
-            });
-        },
         change: function (event) {
             this.$emit('answer', {
                 itemId: this.itemId,

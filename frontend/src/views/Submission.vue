@@ -42,6 +42,7 @@ export default {
                 this.formItems.forEach(item => {
                     this.answers[item.id] = "";
                 });
+                this.formItems.sort((a, b) => a.order - b.order);
                 // notify about var change 
                 this.$forceUpdate();
             })

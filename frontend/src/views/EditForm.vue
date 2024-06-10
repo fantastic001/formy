@@ -38,6 +38,7 @@ export default {
             .then(response => {
                 console.log(response.data);
                 this.formItems = response.data;
+                this.formItems.sort((a, b) => a.order - b.order);
                 // notify about var change 
                 this.createType = null;
                 this.$forceUpdate();
@@ -85,10 +86,12 @@ export default {
         <div v-for="formItem in formItems" :key="formItem.id">
             <FormItem 
                 :itemId="formItem.id" 
-                :mode="'view'" 
+                :mode="'edit'" 
                 :formId="data.id" 
                 :answer="formItem.answer" 
                 :type="formItem.type"
+                @deleted="fetchFormItems"
+                @updated="fetchFormItems"
             />
         </div>
     </div>

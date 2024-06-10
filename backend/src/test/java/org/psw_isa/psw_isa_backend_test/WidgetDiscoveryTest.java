@@ -79,7 +79,7 @@ public class WidgetDiscoveryTest {
             LocalDateTime.now(), 
             LocalDateTime.now().plusDays(10), author, "test", "");
 
-        FormItem item = new FormItem(form, "test", "");
+        FormItem item = new FormItem(form, "test", "", 1);
 
         ShortAnswer sa = new ShortAnswer(item, null);
         

@@ -40,7 +40,7 @@ export default {
         deleteItem: function (itemId) {
             axios.delete(API_URL + "/items/" + itemId + "/")
             .then(response => {
-                this.$router.push({ name: 'Home' });
+                this.$emit("deleted");
             })
             .catch(error => {
                 console.log(error);
@@ -58,6 +58,22 @@ export default {
         },
         change: function (event) {
             this.$emit("answer", event);
+        },
+        moveUp: function() {
+            axios.post(API_URL + "/forms/"+ this.formId  +"/"  + this.itemId + "/up/")
+            .then(response => {
+                this.$emit("updated");
+            }).catch(error => {
+                console.log(error);
+            });
+        },
+        moveDown: function() {
+            axios.post(API_URL + "/forms/"+ this.formId  +"/"  + this.itemId + "/down/")
+            .then(response => {
+                this.$emit("updated");
+            }).catch(error => {
+                console.log(error);
+            });
         }
     },
     components: {
@@ -78,6 +94,11 @@ export default {
         @created="created"
         @answer="change"
     ></component>
+    </div>
+    <div class="formy-item-actions">
+        <button v-if="mode == 'edit'" @click="deleteItem(itemId)">Delete</button>
+        <button v-if="mode == 'edit'" @click="moveUp()">Move Up</button>
+        <button v-if="mode == 'edit'" @click="moveDown()">Move Down</button>
     </div>
 </div>
 </template>

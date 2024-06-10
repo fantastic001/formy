@@ -8,16 +8,18 @@ public class ItemDTO {
     private String description;
     private String type;
     private HashMap<String, String> data;
+    private Integer order;
 
     public ItemDTO() {
     }
     
-    public ItemDTO(Long id, String name, String description, String type, HashMap<String, String> data) {
+    public ItemDTO(Long id, String name, String description, String type, HashMap<String, String> data, int order) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.type = type;
         this.data = data;
+        this.order = order;
     }
 
     public String getName() {
@@ -64,6 +66,14 @@ public class ItemDTO {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Integer getOrder() {
+        return order;
+    }
+
+    public void setOrder(Integer order) {
+        this.order = order;
     }
     
 }
