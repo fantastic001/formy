@@ -56,7 +56,22 @@ export default {
             .catch(error => {
                 console.log(error);
             });
-        }  
+        },
+        downloadCsv: function() {
+            axios.get(API_URL + "/forms/" + this.id + "/csv")
+            .then(response => {
+                console.log(response.data);
+                const url = window.URL.createObjectURL(new Blob([response.data]));
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', 'form.csv');
+                document.body.appendChild(link);
+                link.click();
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        }
 
     },
     components: {
@@ -83,6 +98,7 @@ export default {
                 <input type="datetime-local" class="form-control" id="formExpiry" v-model="data.submissionExpiryTime">
             </div>
             <button type="button" class="btn btn-primary" @click="updateForm">Update Form</button>
+            <button type="button" class="btn btn-primary" @click="downloadCsv">Download CSV</button>
         </div>
         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Add Form Item

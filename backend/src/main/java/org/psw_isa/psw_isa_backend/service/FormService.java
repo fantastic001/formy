@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.psw_isa.psw_isa_backend.models.Form;
 import org.psw_isa.psw_isa_backend.models.FormItem;
@@ -92,10 +93,27 @@ public class FormService {
 	public String getCsv(Long id) {
 		Form myformResult = formRepository.findOneByid(id);
 		if (myformResult == null)  {
-			return null; 
+			return ""; 
 		} else {
 			Form myform = myformResult;
-			return myform.getCsv();
+			// get all submissions for given form 
+			List<FormSubmission> formSubmissions = formSubmissionRepository.findAll();
+			// filter out submissions for given form
+			formSubmissions = formSubmissions.stream().filter(submission -> submission.getForm().getId() == id).collect(Collectors.toList());
+			String csv = "";
+			for (FormSubmission submission : formSubmissions) {
+				// get all answers for given submission 
+				List<FormItemAnswer> formItemAnswers = formItemAnswerRepository.findAll();
+				// filter out answers for given submission 
+				formItemAnswers = formItemAnswers.stream().filter(answer -> answer.getSubmission().getId() == submission.getId()).collect(Collectors.toList());
+				for (FormItemAnswer answer : formItemAnswers) {
+					csv += answer.getAnswer() + ",";
+				}
+				// delete last comma 
+				csv = csv.substring(0, csv.length() - 1);
+				csv += "\n";
+			}
+			return csv;
 		}
 	}
 

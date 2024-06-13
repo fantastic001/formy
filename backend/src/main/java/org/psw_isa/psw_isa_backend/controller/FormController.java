@@ -72,19 +72,18 @@ public class FormController {
 		data.put("test2", data2);
 		return new ResponseEntity<>(data, HttpStatus.OK);
 	}
-	
 
-	@PostMapping(value="/{id}")
-	public ResponseEntity<Form> update(@PathVariable("id") Long id, @RequestBody FormDTO form){
+	@GetMapping(value = "{id}/csv", produces = "text/csv")
+	public ResponseEntity<String> getCSV(@PathVariable("id") Long id) {
 		User currentLoggedInUser = checkRoleService.getUser();
 		if (currentLoggedInUser == null) {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
-		Form formToUpdate = formService.findOneByid(id);
-		if (formToUpdate.getAuthor().getId() != currentLoggedInUser.getId()) {
+		Form form = formService.findOneByid(id);
+		if (form.getAuthor().getId() != currentLoggedInUser.getId()) {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
-		return new ResponseEntity<>(formService.update(id, form), HttpStatus.OK);
+		return new ResponseEntity<>(formService.getCsv(id), HttpStatus.OK);
 	}
 
 	@PostMapping(consumes = "application/json")

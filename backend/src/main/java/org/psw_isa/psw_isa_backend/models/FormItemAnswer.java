@@ -35,6 +35,9 @@ public class FormItemAnswer {
     @NotNull
     FormSubmission submission;
 
+    public FormItemAnswer() {
+    }
+
     public FormItemAnswer(@NotNull FormItem item, String answer, @NotNull FormSubmission submission) {
         this.item = item;
         this.answer = answer;
