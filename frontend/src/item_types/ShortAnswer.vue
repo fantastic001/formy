@@ -136,20 +136,6 @@ export default {
         <p>{{ createType.type }}</p>
         <p>{{ createType.data }}</p>
     </div>
-    <!-- edit item -->
-    <div v-else-if="mode == 'edit'">
-        <form @submit.prevent="addItem">
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" class="form-control" id="name" v-model="createType.name">
-            </div>
-            <div class="form-group">
-                <label for="description">Description</label>
-                <input type="text" class="form-control" id="description" v-model="createType.description">
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-    </div> 
     <div v-else-if="mode == 'submit'">
         <!-- put name for label and description as tooltip  -->
         <label>{{ createType.name }}</label>

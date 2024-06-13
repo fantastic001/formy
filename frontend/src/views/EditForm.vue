@@ -110,10 +110,10 @@ export default {
         </div>
         
         <div class="formy-formitems">
-            <div v-for="formItem in formItems" :key="formItem.id">
+            <div v-for="formItem in formItems" :key="formItem.id" class="formy-formitem">
                 <FormItem 
                     :itemId="formItem.id" 
-                    :mode="'edit'" 
+                    :mode="'view'" 
                     :formId="data.id" 
                     :answer="formItem.answer" 
                     :type="formItem.type"
@@ -133,6 +133,12 @@ export default {
     border: 1px solid #ccc;
     border-radius: 5px;
     background-color: rgb(238, 255, 252);
+}
+
+.formy-formitem {
+    padding: 50px;
+    background-color: rgb(210, 255, 247);
+    margin: 20px;
 }
 
 .formy-formitems {
