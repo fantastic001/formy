@@ -187,4 +187,36 @@ public class FormController {
 		formService.moveDownFormItem(formItemId);
 		return new ResponseEntity<>(formItemId, HttpStatus.OK);
 	}
+
+	@DeleteMapping(value="/{id}/{formItemId}")
+	public ResponseEntity<Long> deleteFormItem(@PathVariable("id") Long id, @PathVariable("formItemId") Long formItemId){
+		Logger.getInstance().debug("Deleting form item with id " + formItemId);
+		User currentLoggedInUser = checkRoleService.getUser();
+		if (currentLoggedInUser == null) {
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		}
+		Form form = formService.findOneByid(id);
+		if (form.getAuthor().getId() != currentLoggedInUser.getId()) {
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		}
+		formService.deleteFormItem(formItemId);
+		return new ResponseEntity<>(formItemId, HttpStatus.OK);
+	}
+
+	@PostMapping(value="/{id}/")
+	public ResponseEntity<Form> updateForm(@PathVariable("id") Long id, @RequestBody FormDTO formDTO){
+		Logger.getInstance().debug("Updating form with id " + id);
+		// print form item params 
+		Logger.getInstance().debug("Name: " + formDTO.getName());
+		Logger.getInstance().debug("Description: " + formDTO.getDescription());
+		User currentLoggedInUser = checkRoleService.getUser();
+		if (currentLoggedInUser == null) {
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		}
+		Form form = formService.findOneByid(id);
+		if (form.getAuthor().getId() != currentLoggedInUser.getId()) {
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		}
+		return new ResponseEntity<>(formService.update(id, formDTO), HttpStatus.OK);
+	}
 }

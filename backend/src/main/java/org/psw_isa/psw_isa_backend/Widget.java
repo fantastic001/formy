@@ -28,4 +28,6 @@ public interface Widget {
     Long getId();
 
     HashMap<String, String> getData();
+
+    void delete(ApplicationContextProvider provider, FormItem item);
 }

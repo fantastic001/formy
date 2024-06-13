@@ -17,6 +17,7 @@ import org.psw_isa.psw_isa_backend.repository.FormRepository;
 import org.psw_isa.psw_isa_backend.repository.FormSubmissionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.psw_isa.psw_isa_backend.FormyConfiguration;
 import org.psw_isa.psw_isa_backend.Logger;
 import org.psw_isa.psw_isa_backend.Widget;
 import org.psw_isa.psw_isa_backend.WidgetDiscovery;
@@ -73,13 +74,17 @@ public class FormService {
 			return null; 
 		} else {
 			Form myform = myformResult.get();
-			return formRepository.save(new Form(
-				myform.getCreateTime(), 
-				form.getSubmissionExpiryTime(), 
-				myform.getAuthor(), 
-				form.getName(), 
-				form.getDescription()
-			));
+			if (form.getSubmissionExpiryTime() != null) {
+				myform.setSubmissionExpiryTime(form.getSubmissionExpiryTime());
+			}
+			if (form.getName() != null) {
+				myform.setName(form.getName());
+			}
+			if (form.getDescription() != null) {
+				myform.setDescription(form.getDescription());
+			}
+			formRepository.save(myform);
+			return myform;
 		}
 		
 	}
@@ -180,6 +185,12 @@ public class FormService {
 		if (item == null) {
 			return;
 		}
+		// find widget from widget discovery 
+		Widget widget = widgetDiscovery.findWidgetFromFormItem(item);
+		if (widget == null) {
+			return;
+		}
+		widget.delete(FormyConfiguration.contextProvider(), item);
 		formItemRepository.delete(item);
 	}
 

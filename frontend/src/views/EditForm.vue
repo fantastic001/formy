@@ -26,6 +26,7 @@ export default {
         axios.get(API_URL + "/forms/" + this.id)
         .then(response => {
             this.data = response.data;
+            console.log("Form data: ", this.data);
             this.fetchFormItems();
         })
         .catch(error => {
@@ -46,7 +47,16 @@ export default {
             .catch(error => {
                 console.log(error);
             });
-        }        
+        },
+        updateForm: function() {
+            axios.post(API_URL + "/forms/" + this.id, this.data)
+            .then(response => {
+                console.log(response.data);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        }  
 
     },
     components: {
@@ -58,6 +68,22 @@ export default {
 <template>
     <div id="edit-form">
         <p>Edit Form {{ data.name }}</p>
+        <div class="form-edit">
+            <div class="form-group">
+                <label for="formName">Form Name</label>
+                <input type="text" class="form-control" id="formName" v-model="data.name">
+            </div>
+            <div class="form-group">
+                <label for="formDescription">Form Description</label>
+                <textarea class="form-control" id="formDescription" v-model="data.description"></textarea>
+            </div>
+            <!-- submission expiry time -->
+            <div class="form-group">
+                <label for="formExpiry">Form Expiry</label>
+                <input type="datetime-local" class="form-control" id="formExpiry" v-model="data.submissionExpiryTime">
+            </div>
+            <button type="button" class="btn btn-primary" @click="updateForm">Update Form</button>
+        </div>
         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Add Form Item
         </button>
@@ -83,22 +109,38 @@ export default {
              />
         </div>
         
-        <div v-for="formItem in formItems" :key="formItem.id">
-            <FormItem 
-                :itemId="formItem.id" 
-                :mode="'edit'" 
-                :formId="data.id" 
-                :answer="formItem.answer" 
-                :type="formItem.type"
-                @deleted="fetchFormItems"
-                @updated="fetchFormItems"
-            />
+        <div class="formy-formitems">
+            <div v-for="formItem in formItems" :key="formItem.id">
+                <FormItem 
+                    :itemId="formItem.id" 
+                    :mode="'edit'" 
+                    :formId="data.id" 
+                    :answer="formItem.answer" 
+                    :type="formItem.type"
+                    @deleted="fetchFormItems"
+                    @updated="fetchFormItems"
+                />
+            </div>
         </div>
     </div>
 </template>
 
 <style scoped> 
 
+.form-edit {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: rgb(238, 255, 252);
+}
 
+.formy-formitems {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: rgb(238, 255, 252);
+}
 
 </style>

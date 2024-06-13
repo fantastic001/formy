@@ -120,5 +120,20 @@ public class ShortAnswer implements Widget {
         HashMap<String, String> data = new HashMap<>();
         return data;
     }
+
+    @Override
+    public void delete(ApplicationContextProvider provider, FormItem item) {
+        ShortAnswerRepository repo = (ShortAnswerRepository) 
+            provider
+            .getApplicationContext()
+            .getBean(ShortAnswerRepository.class);
+        
+        // get all short answers 
+        for (ShortAnswer entity : repo.findAll()) {
+            if (entity.getItem().getId() == item.getId()) {
+                repo.delete(entity);
+            }
+        }
+    }
     
 }

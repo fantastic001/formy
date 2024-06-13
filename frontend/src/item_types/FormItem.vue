@@ -38,7 +38,7 @@ export default {
     },
     methods: {
         deleteItem: function (itemId) {
-            axios.delete(API_URL + "/items/" + itemId + "/")
+            axios.delete(API_URL + "/forms/" + this.formId + "/" + itemId)
             .then(response => {
                 this.$emit("deleted");
             })
