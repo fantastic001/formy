@@ -17,7 +17,7 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 /**
- * This is type of field representing Shortanswer.
+ * This is type of field representing check box.
  */
 @Entity 
 public class CheckBox implements Widget {
