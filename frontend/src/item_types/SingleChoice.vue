@@ -7,12 +7,14 @@ import axios from 'axios';
 import {API_URL} from '../config';
 
 export default {
-    name: "ShortAnswer",
+    name: "SingleChoice",
     data: function () {
         return {
             item: {},
             createType: {},
-            answer: ""
+            answer: "",
+            option_text: "",
+            selected: "",
         };
 	},
     props: ["itemId", "mode", "formId"],
@@ -28,7 +30,7 @@ export default {
         else {
             this.getItem();
             if (this.mode == "submit") {
-                this.answer = "";
+                console.log("Data: ", this.createType);
             }
             else if (this.mode == "view") {
                 this.answer = this.item.data;
@@ -46,6 +48,11 @@ export default {
     },
     methods: {
         change: function (event) {
+            var option = event.target.value;
+            this.selected = option;
+            // answer is comma-separated values from selected options
+            this.answer = this.selected;
+
             this.$emit('answer', {
                 itemId: this.itemId,
                 answer: this.answer
@@ -55,9 +62,18 @@ export default {
             axios.get(API_URL + "/forms/" + this.formId + "/formItems" )
                 .then(response => {
                     var items = response.data;
+                    console.log("ItemId: " + this.itemId + " Items: ", items);
                     for (var i = 0; i < items.length; i++) {
                         if (items[i].id == this.itemId) {
-                            this.createType = items[i];
+                            console.log("Item: ", items[i]);
+                            this.createType = {
+                                name: items[i].name,
+                                description: items[i].description,
+                                type: items[i].type,
+                                data: {
+                                    options: items[i].data.options.split(",")
+                                }
+                            }
                             break;
                         }
                     }
@@ -72,7 +88,9 @@ export default {
                 name: this.createType.name,
                 description: this.createType.description,
                 type: this.createType.type,
-                data: this.createType.data
+                data: {
+                    options: this.createType.data.options.join(",")
+                }
             })
             .then(response => {
                 // EMIT "CREATED" SIGNAL 
@@ -86,15 +104,23 @@ export default {
         setup: function (event) 
         {
             this.createType = {
-                name: "Short Answer",
-                description: "A short answer text field",
-                type: "short_answer",
+                name: "Single Choice",
+                description: "Select one of the options",
+                type: "single_choice",
                 data: {
-                    placeholder: "Enter your answer here",
-                    required: false
+                    options: [],
                 }
             };
         },
+        addOption: function (event) 
+        {
+            this.createType.data.options.push(this.option_text);
+            this.option_text = "";
+        },
+        removeOption: function (index) 
+        {
+            this.createType.data.options.splice(index, 1);
+        }
     }
 }
 </script>
@@ -120,11 +146,17 @@ export default {
         <div class="form-group">
             <label for="data">Data</label>
             
-            <div v-if="createType.type == 'shortAnswer'">
-                <label for="placeholder">Placeholder</label>
-                <input type="text" class="form-control" id="placeholder" v-model="createType.data.placeholder">
-                <label for="required">Required</label>
-                <input type="checkbox" class="form-control" id="required" v-model="createType.data.required">
+            <div class="form-group">
+                <label for="option_text">Option</label>
+                <input type="text" class="form-control" id="option_text" v-model="option_text">
+                <button type="button" class="btn btn-primary" @click="addOption">Add Option</button>
+            </div>
+            <div v-for="(option, index) in createType.data.options" :key="option">
+                <div class="form-group
+                ">
+                    <p>{{ option }}</p>
+                    <button type="button" class="btn btn-danger" @click="removeOption(index)">Remove</button>
+                </div>
             </div>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
@@ -137,9 +169,14 @@ export default {
         <p>{{ createType.data }}</p>
     </div>
     <div v-else-if="mode == 'submit'">
-        <!-- put name for label and description as tooltip  -->
-        <label>{{ createType.name }}</label>
-        <input type="text" class="form-control" v-model="answer" :placeholder="createType.description" @input="change"/>
+        <p>{{ createType.description }}</p>
+        <div class="form-group">
+            <label for="answer">Answer</label>
+            <!-- add dropdown -->
+            <select v-model="selected" @change="change">
+                <option v-for="option in createType.data.options" :key="option" :value="option">{{ option }}</option>
+            </select>
+        </div>
     </div>
     <div v-else>
         <p>Mode not supported</p>
