@@ -99,7 +99,7 @@ public class WidgetDiscoveryTest {
  
     @Test 
     public void testFindAll() {
-    	assertEquals(discovery.getWidgets().size(), 1);
+    	assertEquals(discovery.getWidgets().size(), 4);
     }
 
     @Test 
