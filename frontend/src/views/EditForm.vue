@@ -106,14 +106,14 @@ export default {
 
         <div class="dropdown-menu">
             <button class="dropdown-item" @click="createType = 'short_answer'">Short Answer</button>
-            <button class="dropdown-item" @click="createType = 'long_answer'">Long Answer</button>
+            <!-- <button class="dropdown-item" @click="createType = 'long_answer'">Long Answer</button> -->
             <button class="dropdown-item" @click="createType = 'multiple_choice'">Multiple Choice</button>
             <button class="dropdown-item" @click="createType = 'checkbox'">Checkbox</button>
-            <button class="dropdown-item" @click="createType = 'dropdown'">Dropdown</button>
-            <button class="dropdown-item" @click="createType = 'date'">Date</button>
-            <button class="dropdown-item" @click="createType = 'time'">Time</button>
-            <button class="dropdown-item" @click="createType = 'file'">File</button>
-            <button class="dropdown-item" @click="createType = 'section'">Section</button>
+            <button class="dropdown-item" @click="createType = 'single_choice'">Dropdown</button>
+            <!-- <button class="dropdown-item" @click="createType = 'date'">Date</button> -->
+            <!-- <button class="dropdown-item" @click="createType = 'time'">Time</button> -->
+            <!-- <button class="dropdown-item" @click="createType = 'file'">File</button> -->
+            <!-- <button class="dropdown-item" @click="createType = 'section'">Section</button> -->
         </div>
         <div v-if="createType != null">
             <FormItem :itemId="null" 

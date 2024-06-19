@@ -6,6 +6,10 @@
 import axios from 'axios';
 import {API_URL} from '../config';
 import ShortAnswer from '../item_types/ShortAnswer.vue';
+import MultipleChoice from '../item_types/MultipleChoice.vue';
+import CheckBox from '../item_types/CheckBox.vue';
+import SingleChoice from '../item_types/SingleChoice.vue';
+
 
 export default {
     name: "FormItem",
@@ -77,7 +81,10 @@ export default {
         }
     },
     components: {
-        ShortAnswer: ShortAnswer
+        ShortAnswer: ShortAnswer,
+        MultipleChoice: MultipleChoice,
+        CheckBox: CheckBox,
+        SingleChoice: SingleChoice
     }
 }
 </script>
