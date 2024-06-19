@@ -18,6 +18,7 @@ import org.psw_isa.psw_isa_backend.repository.FormRepository;
 import org.psw_isa.psw_isa_backend.repository.FormSubmissionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.hibernate.mapping.Collection;
 import org.psw_isa.psw_isa_backend.FormyConfiguration;
 import org.psw_isa.psw_isa_backend.Logger;
 import org.psw_isa.psw_isa_backend.Widget;
@@ -118,6 +119,26 @@ public class FormService {
 	}
 
 	public void delete(Long id) {
+		List<FormSubmission> formSubmissions = formSubmissionRepository.findAll();
+		// filter out submissions for given form
+		formSubmissions = formSubmissions.stream().filter(submission -> submission.getForm().getId() == id).collect(Collectors.toList());
+		for (FormSubmission submission : formSubmissions) {
+			// get all answers for given submission 
+			List<FormItemAnswer> formItemAnswers = formItemAnswerRepository.findAll();
+			// filter out answers for given submission 
+			formItemAnswers = formItemAnswers.stream().filter(answer -> answer.getSubmission().getId() == submission.getId()).collect(Collectors.toList());
+			for (FormItemAnswer answer : formItemAnswers) {
+				formItemAnswerRepository.delete(answer);
+			}
+			formSubmissionRepository.delete(submission);
+		}
+		// get all items for given form 
+		List<FormItem> formItems = formItemRepository.findAll();
+		// filter out items for given form
+		formItems = formItems.stream().filter(item -> item.getForm().getId() == id).collect(Collectors.toList());
+		for (FormItem item : formItems) {
+			this.deleteFormItem(item.getId());
+		}
 		formRepository.deleteById(id);
 	}
 

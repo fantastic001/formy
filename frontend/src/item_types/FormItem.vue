@@ -103,9 +103,9 @@ export default {
     ></component>
     </div>
     <div class="formy-item-actions">
-        <button v-if="mode == 'edit'" @click="deleteItem(itemId)">Delete</button>
-        <button v-if="mode == 'edit'" @click="moveUp()">Move Up</button>
-        <button v-if="mode == 'edit'" @click="moveDown()">Move Down</button>
+        <button v-if="mode == 'edit' || mode == 'view'" @click="deleteItem(itemId)">Delete</button>
+        <button v-if="mode == 'edit' || mode == 'view'" @click="moveUp()">Move Up</button>
+        <button v-if="mode == 'edit' || mode == 'view'" @click="moveDown()">Move Down</button>
     </div>
 </div>
 </template>
