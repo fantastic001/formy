@@ -7,7 +7,7 @@ import axios from 'axios';
 import {API_URL} from '../config';
 
 export default {
-    name: "ShortAnswer",
+    name: "CheckBox",
     data: function () {
         return {
             item: {},
@@ -86,9 +86,9 @@ export default {
         setup: function (event) 
         {
             this.createType = {
-                name: "Short Answer",
-                description: "A short answer text field",
-                type: "short_answer",
+                name: "Checkbox",
+                description: "A yes/no answer text field",
+                type: "checkbox",
                 data: {
                     placeholder: "Enter your answer here",
                     required: false
@@ -137,9 +137,9 @@ export default {
         <p>{{ createType.data }}</p>
     </div>
     <div v-else-if="mode == 'submit'">
-        <!-- put name for label and description as tooltip  -->
+        <!-- add checkbox -->
         <label>{{ createType.name }}</label>
-        <input type="text" class="form-control" v-model="answer" :placeholder="createType.description" @input="change"/>
+        <input type="checkbox" v-model="answer" @change="change">
     </div>
     <div v-else>
         <p>Mode not supported</p>

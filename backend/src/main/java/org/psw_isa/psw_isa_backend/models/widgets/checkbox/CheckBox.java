@@ -44,6 +44,14 @@ public class CheckBox implements Widget {
 
     @Override
     public void decodeAnswer(String answer) {
+        if (answer == null) {
+            this.answer = false;
+            return;
+        }
+        if (answer == "") {
+            this.answer = false;
+            return;
+        }
         this.answer = answer == "true" ? true : false;
         
     }

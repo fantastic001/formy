@@ -83,7 +83,7 @@ export default {
     components: {
         ShortAnswer: ShortAnswer,
         MultipleChoice: MultipleChoice,
-        CheckBox: CheckBox,
+        Checkbox: CheckBox,
         SingleChoice: SingleChoice
     }
 }
