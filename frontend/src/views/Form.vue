@@ -87,7 +87,7 @@ export default {
 
   <div class="panel-body">
     <vue-form-generator :schema="schema" :model="model" :options="formOptions"></vue-form-generator>
-    <button @click="submit">Submit</button>
+    <button class="btn btn-primary"  @click="submit">Submit</button>
   </div>
 </div>
 </template>

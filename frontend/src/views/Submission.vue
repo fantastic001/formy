@@ -90,12 +90,26 @@ export default {
             />
         </div>
 
-        <button @click="submitForm">Submit</button>
+        <button class="btn-submit" @click="submitForm">Submit</button>
     </div>
 </template>
 
 <style scoped> 
 
-
+.btn-submit {
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    height: 40px;
+    font-size: 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    /* make it wide over whole width */
+    display: block;
+    width: 100%;
+}
 
 </style>

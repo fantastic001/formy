@@ -39,7 +39,7 @@ export default {
 
 <template>
   <div id="app">
-    <nav class="main-menu navbar navbar-dark bg-primary navbar-expand-lg">
+    <nav class="navbar navbar-dark navbar-expand-lg main-menu">
 	<div class="navbar-nav">
         <router-link to='/'>Home</router-link>
 
@@ -50,12 +50,12 @@ export default {
         <router-link v-if='data.role != "NOT_LOGGED" && data.role != null' to='/logout'>Log out</router-link>
 		<router-link v-if='data.role != "NOT_LOGGED" && data.role != null' to='/form'>Create Form</router-link>
 
+		<span class="user-status" v-if='data.role != "NOT_LOGGED" && data.role != null'>Logged as: {{ data.user }}</span>
 
 
 
 	</div>
 	
-	<p class="my-2 my-lg-0" v-if='data.role != "NOT_LOGGED" && data.role != null'>Logged as: {{ data.user }}</p>
 
 
     </nav>
@@ -74,6 +74,8 @@ export default {
 	color: white;
 	padding: 10px;
 }
+
+
 .main-menu a:hover 
 {
 	text-decoration: none;
@@ -81,8 +83,23 @@ export default {
 	background: #bbbbff;
 }
 
-.main-menu p
+
+.main-menu
 {
 	color: white;
+	background-color: #03264d;
+	display: block;
+	width: 100%;
 }
+
+.user-status {
+	/* put it on right side of navbar */
+	margin-left: auto;
+	/* move it on right  */
+	margin-right: 10px;
+	display: block;
+
+}
+
+
 </style>
