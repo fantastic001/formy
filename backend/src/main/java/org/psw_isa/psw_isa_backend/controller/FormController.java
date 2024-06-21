@@ -52,14 +52,6 @@ public class FormController {
 	
 	@GetMapping(value="/{id}")
 	public ResponseEntity<Form> findOneByid(@PathVariable("id") Long id){
-		User currentLoggedInUser = checkRoleService.getUser();
-		if (currentLoggedInUser == null) {
-			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-		}
-		Form form = formService.findOneByid(id);
-		if (form.getAuthor().getId() != currentLoggedInUser.getId()) {
-			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-		}
 		return new ResponseEntity<>(formService.findOneByid(id), HttpStatus.OK);
 	}
 
@@ -137,14 +129,6 @@ public class FormController {
 
 	@GetMapping(value="/{id}/formItems")
 	public ResponseEntity<List<ItemDTO>> getFormItems(@PathVariable("id") Long id){
-		User currentLoggedInUser = checkRoleService.getUser();
-		if (currentLoggedInUser == null) {
-			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-		}
-		Form form = formService.findOneByid(id);
-		if (form.getAuthor().getId() != currentLoggedInUser.getId()) {
-			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-		}
 		return new ResponseEntity<>(formService.getFormItems(id), HttpStatus.OK);
 	}
 
@@ -155,7 +139,6 @@ public class FormController {
 		for (Long key : data.keySet()) {
 			Logger.getInstance().debug("Data key: " + key + " value: " + data.get(key));
 		}
-		User currentLoggedInUser = checkRoleService.getUser();
 		Long result = formService.submit(id, data);
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
