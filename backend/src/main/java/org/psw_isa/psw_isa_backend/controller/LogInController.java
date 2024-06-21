@@ -10,6 +10,7 @@ import org.psw_isa.psw_isa_backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,6 +38,12 @@ public class LogInController {
 		}
 	}
 	
-	
+	@DeleteMapping
+	public ResponseEntity<Long> logout(){
+		Logger.getInstance().debug("Logout called");
+		HttpSession session = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest().getSession();
+		session.invalidate();
+		return new ResponseEntity<>(null, HttpStatus.OK);
+	}
 	
 }
