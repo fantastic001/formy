@@ -101,16 +101,33 @@ public class FormService {
 			List<FormSubmission> formSubmissions = formSubmissionRepository.findAll();
 			// filter out submissions for given form
 			formSubmissions = formSubmissions.stream().filter(submission -> submission.getForm().getId() == id).collect(Collectors.toList());
+			// get form items 
+			List<FormItem> formItems = formItemRepository.findAll();
+			// filter out items for given form
+			formItems = formItems.stream().filter(item -> item.getForm().getId() == id).collect(Collectors.toList());
+			// create header
+			HashMap<String, String> values = new HashMap<String, String>();
+			for (FormItem item : formItems) {
+				values.put(item.getName(), "");
+			}
 			String csv = "";
+			for (String key : values.keySet()) {
+				csv += key + ",";
+			}
+			// delete last comma
+			csv = csv.substring(0, csv.length() - 1);
+			csv += "\n";
 			for (FormSubmission submission : formSubmissions) {
 				// get all answers for given submission 
 				List<FormItemAnswer> formItemAnswers = formItemAnswerRepository.findAll();
 				// filter out answers for given submission 
 				formItemAnswers = formItemAnswers.stream().filter(answer -> answer.getSubmission().getId() == submission.getId()).collect(Collectors.toList());
 				for (FormItemAnswer answer : formItemAnswers) {
-					csv += answer.getAnswer() + ",";
+					values.put(answer.getItem().getName(), answer.getAnswer());
 				}
-				// delete last comma 
+				for (String key : values.keySet()) {
+					csv += "\"" + values.get(key) + "\",";
+				}
 				csv = csv.substring(0, csv.length() - 1);
 				csv += "\n";
 			}
