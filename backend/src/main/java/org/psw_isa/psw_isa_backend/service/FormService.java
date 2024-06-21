@@ -166,6 +166,12 @@ public class FormService {
 			return null;
 		} else {
 			Logger.getInstance().debug("FormService.addFormItem");
+			// check if formitem with given name exists 
+			for (FormItem item : formItemRepository.findAll()) {
+				if (item.getForm().getId() == id && item.getName().equals(name)) {
+					return null;
+				}
+			}
 			FormItem formItem = widgetDiscovery.createItem(myformResult, name, description, type, data);
 			return formItem;
 		}

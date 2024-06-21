@@ -129,6 +129,9 @@ public class FormController {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
 		FormItem result = formService.addFormItem(id, itemDTO.getName(), itemDTO.getDescription(), itemDTO.getType(), itemDTO.getData());
+		if (result == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 
