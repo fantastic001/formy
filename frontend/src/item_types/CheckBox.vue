@@ -131,10 +131,8 @@ export default {
     </form>
     <!-- display item -->
     <div v-else-if="mode == 'view'">
-        <p>{{ createType.name }}</p>
-        <p>{{ createType.description }}</p>
-        <p>{{ createType.type }}</p>
-        <p>{{ createType.data }}</p>
+        <p> Yes/No answer: {{ createType.name }} </p>
+        <p>Description: {{ createType.description }}</p>
     </div>
     <div v-else-if="mode == 'submit'">
         <!-- add checkbox -->

@@ -131,10 +131,7 @@ export default {
     </form>
     <!-- display item -->
     <div v-else-if="mode == 'view'">
-        <p>{{ createType.name }}</p>
-        <p>{{ createType.description }}</p>
-        <p>{{ createType.type }}</p>
-        <p>{{ createType.data }}</p>
+        <p> Short answer: {{ createType.name }} </p>
     </div>
     <div v-else-if="mode == 'submit'">
         <!-- put name for label and description as tooltip  -->

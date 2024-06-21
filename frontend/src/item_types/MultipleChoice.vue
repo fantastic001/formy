@@ -168,10 +168,9 @@ export default {
     </form>
     <!-- display item -->
     <div v-else-if="mode == 'view'">
-        <p>{{ createType.name }}</p>
-        <p>{{ createType.description }}</p>
-        <p>{{ createType.type }}</p>
-        <p>{{ createType.data }}</p>
+        <p> Multiple Choice answer: {{ createType.name }} </p>
+        <p> Description: {{ createType.description }} </p>
+        <p> Options: {{ createType.data.options }} </p>
     </div>
     <div v-else-if="mode == 'submit'">
         <p>{{ createType.description }}</p>
